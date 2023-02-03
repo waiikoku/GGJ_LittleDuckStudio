@@ -28,6 +28,22 @@ public class SoundManager : Singleton<SoundManager>
         return System.Array.Find(musicPlaylist, music => music.id == id);
     }
 
+    private Sound FindSFX(int id)
+    {
+        return System.Array.Find(sfxPlaylist, sfx => sfx.id == id);
+    }
+
+
+    private Sound FindMusic(string name)
+    {
+        return System.Array.Find(musicPlaylist, music => music.soundName == name);
+    }
+
+    private Sound FindSFX(string name)
+    {
+        return System.Array.Find(sfxPlaylist, sfx => sfx.soundName == name);
+    }
+
     public void PlayBGM(Sound bgm)
     {
         bgmPlayer.Stop();
@@ -52,11 +68,45 @@ public class SoundManager : Singleton<SoundManager>
         }
     }
 
+    public void PlayBGM(string name)
+    {
+        Sound sound = FindMusic(name);
+        if (sound == null)
+        {
+            return;
+        }
+        else
+        {
+            bgmPlayer.Stop();
+            bgmPlayer.clip = sound.clip;
+            bgmPlayer.volume = bgmVolume * sound.modifyVolume;
+            bgmPlayer.Play();
+        }
+    }
 
     public void PlaySFX(Sound effect)
     {
         sfxPlayer.PlayOneShot(effect.clip, sfxVolume * effect.modifyVolume);
     }
+
+    public void PlaySFX(int id)
+    {
+        Sound sound = FindSFX(id);
+        if(sound != null)
+        {
+            PlaySFX(sound);
+        }
+    }
+
+    public void PlaySFX(string name)
+    {
+        Sound sound = FindSFX(name);
+        if (sound != null)
+        {
+            PlaySFX(sound);
+        }
+    }
+
 
     public void BGM_ChangeVolume(float volume)
     {
