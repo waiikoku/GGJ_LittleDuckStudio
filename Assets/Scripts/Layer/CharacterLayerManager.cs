@@ -1,22 +1,46 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Windows;
 
-public class CharacterLayerManager : MonoBehaviour
+public class CharacterLayerManager : Singleton<CharacterLayerManager>
 {
     [SerializeField] private List<Transform> characters_tf = new List<Transform>();
     [SerializeField] private List<SpriteRenderer> characters_sr = new List<SpriteRenderer>();
-    [SerializeField] private List<int> characterOrder = new List<int>();
     [SerializeField] private int characterCount = 0;
 
     public float topYLimit;
     public float bottomYLimit;
 
+    [Header("Inject")]
+    [SerializeField] private SpriteRenderer[] injectSR;
+
     //Cache
-    private int height;
-    private float lowerValue;
     private Vector3 position;
+    private Queue<DeleteInfo> deleteQueue;
+
+    public struct DeleteInfo
+    {
+        public SpriteRenderer spriteRenderer;
+        public Action callback;
+
+        public DeleteInfo(SpriteRenderer sr,Action action)
+        {
+            this.spriteRenderer = sr;
+            this.callback = action;
+        }
+    }
+
+    private void Start()
+    {
+        for (int i = 0; i < injectSR.Length; i++)
+        {
+            Add(injectSR[i]);
+        }
+        deleteQueue = new Queue<DeleteInfo>();
+    }
+
     private void FixedUpdate()
     {
         if (characterCount == 0) return;
@@ -27,24 +51,31 @@ public class CharacterLayerManager : MonoBehaviour
     {
         if (characterCount == 0) return;
         UpdateOrder();
+        if (deleteQueue.Count > 0)
+        {
+            for (int i = 0; i < deleteQueue.Count; i++)
+            {
+                DeleteInfo info = deleteQueue.Dequeue();
+                characters_tf.Remove(info.spriteRenderer.transform);
+                characters_sr.Remove(info.spriteRenderer);
+                info.callback?.Invoke();
+            }
+            characterCount = characters_sr.Count;
+        }
     }
 
     public void Add(SpriteRenderer sprite)
     {
         if (characters_sr.Contains(sprite)) return;
         characters_sr.Add(sprite);
-        int calculate = 0;
         characters_tf.Add(sprite.transform);
-        characterOrder.Add(calculate);
         characterCount = characters_sr.Count;
     }
 
-    public void Remove(SpriteRenderer sprite)
+    public void Remove(SpriteRenderer sprite,Action callback)
     {
         if (characters_sr.Contains(sprite) == false) return;
-        characters_tf.Add(sprite.transform);
-        characters_sr.Remove(sprite);
-        characterCount = characters_sr.Count;
+        deleteQueue.Enqueue(new DeleteInfo(sprite,callback));
     }
 
     private void SortingByY()
