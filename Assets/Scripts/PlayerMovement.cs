@@ -7,6 +7,15 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private Rigidbody2D rb;
     private Vector2 moveDirection;
     public float moveSpeed;
+
+    public enum PhysicMode
+    {
+        Translate,
+        Rigidbody,
+        Position
+    }
+    public PhysicMode physicMode;
+
     private void Update()
     {
         moveDirection.x = Input.GetAxis("Horizontal");
@@ -24,6 +33,20 @@ public class PlayerMovement : MonoBehaviour
 
     private void MoveHandler()
     {
-        rb.velocity = moveDirection * moveSpeed;
+        switch (physicMode)
+        {
+            case PhysicMode.Translate:
+                transform.Translate(moveDirection * moveSpeed);
+                break;
+            case PhysicMode.Rigidbody:
+                rb.velocity = moveDirection * moveSpeed;
+                break;
+            case PhysicMode.Position:
+                transform.position += (Vector3)moveDirection * moveSpeed;
+                break;
+            default:
+                break;
+        }
+
     }
 }

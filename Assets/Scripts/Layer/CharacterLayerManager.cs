@@ -10,10 +10,13 @@ public class CharacterLayerManager : MonoBehaviour
     [SerializeField] private List<int> characterOrder = new List<int>();
     [SerializeField] private int characterCount = 0;
 
+    public float topYLimit;
+    public float bottomYLimit;
 
     //Cache
     private int height;
     private float lowerValue;
+    private Vector3 position;
     private void FixedUpdate()
     {
         if (characterCount == 0) return;
@@ -48,6 +51,9 @@ public class CharacterLayerManager : MonoBehaviour
     {
         for (int i = 0; i < characterCount; i++)
         {
+            position = characters_tf[i].position;
+            position.y = Mathf.Clamp(position.y, bottomYLimit, topYLimit);
+            characters_tf[i].position = position;
             var max = i;
             for (var j = i + 1; j < characterCount; j++)
             {
