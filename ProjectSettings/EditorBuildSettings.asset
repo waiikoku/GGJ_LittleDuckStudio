@@ -4,5 +4,8 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Scenes/Test_Parallax.unity
+    guid: 2e14e4ee0d0ae6149a8a3505e9a8f43f
   m_configObjects: {}
