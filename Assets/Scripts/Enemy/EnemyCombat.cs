@@ -31,7 +31,7 @@ public class EnemyCombat : CharacterCombat , IKnockbackable
             DropItem();
             gameObject.SetActive(false);
             HealthbarManager.Instance.Remove(transform);
-            CharacterLayerManager.Instance.Remove(sr, delegate { Destroy(gameObject); });
+            CharacterLayerManager.Instance.Remove(sr, delegate { Destroy(gameObject,8f); });
         }
     }
 

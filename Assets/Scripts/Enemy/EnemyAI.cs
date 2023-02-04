@@ -53,7 +53,6 @@ public class EnemyAI : MonoBehaviour
     {
         Vector3 shootDirection;
         shootDirection = player.position - transform.position;
-        //...instantiating the rocket
         Rigidbody2D bulletInstance = Instantiate(projectile, weaponHolder.position, Quaternion.Euler(new Vector3(0, 0, 0)));
         bulletInstance.gameObject.SetActive(false);
         projectile.GetComponent<Projectile>().Set(damage);

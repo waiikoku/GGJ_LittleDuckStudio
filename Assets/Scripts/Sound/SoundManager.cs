@@ -77,6 +77,7 @@ public class SoundManager : Singleton<SoundManager>
         Sound sound = FindMusic(name);
         if (sound == null)
         {
+            Debug.LogWarning("No BGM Found");
             return;
         }
         else
@@ -108,6 +109,10 @@ public class SoundManager : Singleton<SoundManager>
         if (sound != null)
         {
             PlaySFX(sound);
+        }
+        else
+        {
+            Debug.LogWarning("No SFX Found");
         }
     }
 

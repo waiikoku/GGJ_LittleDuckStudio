@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 public class HealthbarManager : Singleton<HealthbarManager>
 {
-    public List<RectTransform> hpbar = new List<RectTransform>();
+    public List<RectTransform> rt = new List<RectTransform>();
     public List<Transform> tracking = new List<Transform>();
     public RectTransform container;
     public Slider prefab;
@@ -35,10 +35,10 @@ public class HealthbarManager : Singleton<HealthbarManager>
         {
             Vector3 screenPoint = cam.WorldToViewportPoint(tracking[i].position);
             bool onScreen = screenPoint.z > 0 && screenPoint.x > 0 && screenPoint.x < 1 && screenPoint.y > 0 && screenPoint.y < 1;
-            hpbar[i].gameObject.SetActive(onScreen);
+            rt[i].gameObject.SetActive(onScreen);
             if (onScreen)
             {
-                hpbar[i].anchoredPosition = cam.ViewportToScreenPoint(screenPoint);
+                rt[i].anchoredPosition = cam.ViewportToScreenPoint(screenPoint);
             }
         }
         if(deleteBar.Count > 0)
@@ -46,7 +46,7 @@ public class HealthbarManager : Singleton<HealthbarManager>
             for (int i = 0; i < deleteBar.Count; i++)
             {
                 DeleteInfo info = deleteBar.Dequeue();
-                hpbar.Remove(info.rt);
+                rt.Remove(info.rt);
                 tracking.Remove(info.tf);
                 Destroy(info.rt.gameObject);
             }
@@ -58,12 +58,17 @@ public class HealthbarManager : Singleton<HealthbarManager>
         Slider slider = Instantiate(prefab,container);
         combat.OnHealthUpdate += delegate (float value) { slider.value = value; };
         tracking.Add(target);
-        hpbar.Add(slider.GetComponent<RectTransform>());
+        rt.Add(slider.GetComponent<RectTransform>());
     }
 
+    public void Add(Transform target,RectTransform rect)
+    {
+        tracking.Add(target);
+        rt.Add(rect);
+    }
     public void Remove(Transform tf)
     {
         int index = tracking.IndexOf(tf);
-        deleteBar.Enqueue(new DeleteInfo(hpbar[index], tf));
+        deleteBar.Enqueue(new DeleteInfo(rt[index], tf));
     }
 }

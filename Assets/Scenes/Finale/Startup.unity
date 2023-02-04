@@ -599,6 +599,7 @@ MonoBehaviour:
   returnToMenuButton: {fileID: 0}
   musicSlide: {fileID: 0}
   sfxSlide: {fileID: 0}
+  healthBar: {fileID: 0}
 --- !u!114 &652652685
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -611,7 +612,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 746f6b1bb6646b94ebf263ec1903860d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hpbar: []
+  rt: []
   tracking: []
   container: {fileID: 0}
   prefab: {fileID: 0}
@@ -995,7 +996,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fd77d283de21d8f498d1ad4ec5db39d8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  menuName: 
+  menuName: Menu
 --- !u!1 &1164665036
 GameObject:
   m_ObjectHideFlags: 0
@@ -1750,8 +1751,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   prefabs: []
   spawnPoints: []
+  focusPoints: []
   zoneAmount: 
   level: 0
+  cmVC: {fileID: 0}
+  cam: {fileID: 0}
+  player: {fileID: 0}
+  viewpointLeft: {x: 0, y: 0}
+  viewpointRight: {x: 0, y: 0}
+  minDelay: 0
+  maxDelay: 0
 --- !u!1 &2132232551
 GameObject:
   m_ObjectHideFlags: 0

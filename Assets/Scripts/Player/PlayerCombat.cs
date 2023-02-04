@@ -14,6 +14,9 @@ public class PlayerCombat : CharacterCombat
 
     public int hitCount;
     [SerializeField] private PlayerAnimator anim;
+
+    [Header("SoundInfo")]
+    [SerializeField] private string projectileSFX;
     private void Start()
     {
         InputManager.Instance.OnLMB += PrimaryAttack;
@@ -51,7 +54,7 @@ public class PlayerCombat : CharacterCombat
         pfb.Set(dmg);
         bulletInstance.gameObject.SetActive(true);
         bulletInstance.velocity = new Vector2(shootDirection.x * speed, shootDirection.y * speed);
-        //SoundManager.Instance.PlaySFX()
+        SoundManager.Instance.PlaySFX(projectileSFX);
     }
 
     private void PrimaryAttack(bool value)
