@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemID: 999
   itemName: The root
-  itemIcon: {fileID: 21300000, guid: 518ded92e5dbf494e8f76a74d752272e, type: 3}
+  itemIcon: {fileID: 21300000, guid: 3042b019b052942a1baf7aa49d7ca6bb, type: 3}
   itemDescription: Root!

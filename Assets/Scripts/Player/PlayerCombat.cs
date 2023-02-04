@@ -17,11 +17,17 @@ public class PlayerCombat : CharacterCombat
 
     [Header("SoundInfo")]
     [SerializeField] private string projectileSFX;
+
+    private Queue<Vector2> attackQueue;
     private void Start()
     {
         InputManager.Instance.OnLMB += PrimaryAttack;
-        OnHealthUpdate += UIManager.Instance.UpdateHealth;
+        if (UIManager.Instance != null)
+        {
+            OnHealthUpdate += UIManager.Instance.UpdateHealth;
+        }
         anim.aer.OnAttack += ShootProjectile;
+        InputManager.Instance.OnSprinkle += WiggleSkill;
     }
 
     private void OnDestroy()
@@ -44,23 +50,32 @@ public class PlayerCombat : CharacterCombat
     private void ShootProjectile()
     {
         Vector3 shootDirection;
-        shootDirection = Input.mousePosition;
+        shootDirection = InputManager.Instance.mousePos;
         shootDirection.z = 0.0f;
         shootDirection = Camera.main.ScreenToWorldPoint(shootDirection);
-        shootDirection = (shootDirection - transform.position).normalized;
+        print($"CMS {shootDirection}");
+        shootDirection = (shootDirection - transform.position);
+        print($"SD {shootDirection}");
         Rigidbody2D bulletInstance = Instantiate(projectile, wandHolder.position, Quaternion.Euler(new Vector3(0, 0, 0)));
         bulletInstance.gameObject.SetActive(false);
         Projectile pfb = projectile.GetComponent<Projectile>();
         pfb.Set(dmg);
         bulletInstance.gameObject.SetActive(true);
         bulletInstance.velocity = new Vector2(shootDirection.x * speed, shootDirection.y * speed);
-        SoundManager.Instance.PlaySFX(projectileSFX);
+        //SoundManager.Instance.PlaySFX(projectileSFX);
     }
 
     private void PrimaryAttack(bool value)
     {
         if (value == false) return;
         anim.Attack();
+        //attackQueue.Enqueue(InputManager.Instance.mousePos);
     }
 
+    private void WiggleSkill(bool value)
+    {
+        if (value == false) return;
+        anim.SetWand(false);
+        anim.TriggerWaggle();
+    }
 }

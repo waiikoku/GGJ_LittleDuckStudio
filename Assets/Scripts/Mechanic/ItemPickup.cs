@@ -27,6 +27,7 @@ public class ItemPickup : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        if (GameManager.Instance == null) return;
         if (collision.CompareTag(targetTag))
         {
             GameManager.Instance.AddItem(item.itemID);

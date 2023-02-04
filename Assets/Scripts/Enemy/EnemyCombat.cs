@@ -17,7 +17,7 @@ public class EnemyCombat : CharacterCombat , IKnockbackable
     [SerializeField] private float delay = 0.15f;
     private void Start()
     {
-        HealthbarManager.Instance.AddHealth(transform, this);
+        HealthbarManager.Instance?.AddHealth(transform, this);
     }
 
     public override void Damage(float dmg)

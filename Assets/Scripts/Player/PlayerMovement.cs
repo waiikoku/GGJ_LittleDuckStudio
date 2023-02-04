@@ -7,7 +7,8 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private Rigidbody2D rb;
     private Vector2 moveDirection;
     public float moveSpeed;
-
+    [SerializeField] private PlayerAnimator anim;
+    [SerializeField] private SpriteRenderer sr;
     public enum PhysicMode
     {
         Translate,
@@ -15,14 +16,22 @@ public class PlayerMovement : MonoBehaviour
         Position
     }
     public PhysicMode physicMode;
+    private ZoneManager.LimitInfo limitInfo;
 
     private void Start()
     {
         InputManager.Instance.OnAxis += UpdateInput;
+        limitInfo = ZoneManager.Instance.GetInfo();
     }
     private void FixedUpdate()
     {
         MoveHandler();
+        ZoneManager.Instance.LimitYPosition(transform, limitInfo.MinY, limitInfo.MaxY);
+    }
+
+    private void LateUpdate()
+    {
+        AnimHandler();
     }
 
     public void UpdateInput(Vector2 input)
@@ -54,11 +63,20 @@ public class PlayerMovement : MonoBehaviour
     {
         if(moveDirection.x > 0)
         {
-            transform.localScale = Vector3.one;
+            sr.flipX = false;
+           //transform.localScale = Vector3.one;
         }
         else if(moveDirection.x < 0)
         {
-            transform.localScale = new Vector3(-1, 1, 1);
+            sr.flipX = true;
+            //transform.localScale = new Vector3(-1, 1, 1);
         }
     }
+
+    private void AnimHandler()
+    {
+        anim.SetWalk(moveDirection != Vector2.zero);
+    }
+
+
 }

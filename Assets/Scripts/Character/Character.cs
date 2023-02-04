@@ -9,7 +9,7 @@ public abstract class Character : MonoBehaviour
 
     protected virtual void Start()
     {
-        CharacterLayerManager.Instance.Add(m_sprite);
+        CharacterLayerManager.Instance?.Add(m_sprite);
     }
 
     protected Sprite CaptureFrame()

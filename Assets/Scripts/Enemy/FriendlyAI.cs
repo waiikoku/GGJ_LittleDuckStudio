@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -39,7 +40,7 @@ public class FriendlyAI : Character
     [Header("SoundInfo")]
     [SerializeField] private string projectileSFX;
     [SerializeField] private string meleeSFX;
-
+    private Action<float> OnHealthUpdate;
     public enum AssistMode
     {
         Stand,
@@ -55,7 +56,7 @@ public class FriendlyAI : Character
     protected override void Start()
     {
         base.Start();
-
+        HealthbarManager.Instance.AddHealth(transform, OnHealthUpdate);
     }
 
     private void FixedUpdate()
@@ -70,6 +71,7 @@ public class FriendlyAI : Character
         switch (combatStyle)
         {
             case CombatStyle.Melee:
+                if (activateMelee == false) return;
                 if (Time.time > meleeTimestamp)
                 {
                     meleeTimestamp = Time.time + meleeCooldown;
@@ -77,6 +79,7 @@ public class FriendlyAI : Character
                 }
                 break;
             case CombatStyle.Range:
+                if (activateRange == false) return;
                 if (Time.time > fireTimestamp)
                 {
                     fireTimestamp = Time.time + (1f / fireRate);

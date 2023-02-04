@@ -61,6 +61,14 @@ public class HealthbarManager : Singleton<HealthbarManager>
         rt.Add(slider.GetComponent<RectTransform>());
     }
 
+    public void AddHealth(Transform target, Action<float> onHealthUpdate)
+    {
+        Slider slider = Instantiate(prefab, container);
+        onHealthUpdate += delegate (float value) { slider.value = value; };
+        tracking.Add(target);
+        rt.Add(slider.GetComponent<RectTransform>());
+    }
+
     public void Add(Transform target,RectTransform rect)
     {
         tracking.Add(target);

@@ -8,10 +8,12 @@ public class Projectile : MonoBehaviour
 {
     public string targetTag = "Untagged";
     public float dmg;
+    private bool isSet = false;
 
     public void Set(float damage)
     {
         dmg = damage;
+        isSet = true;
     }
     protected virtual void OnTriggerEnter2D(Collider2D collision)
     {
@@ -33,6 +35,7 @@ public class Projectile : MonoBehaviour
 
     private void OnBecameInvisible()
     {
+        if (isSet == false) return;
         Destroy(gameObject);
     }
 }
