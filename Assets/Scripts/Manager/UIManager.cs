@@ -12,10 +12,11 @@ public class UIManager : Singleton<UIManager>
     [SerializeField] private TextMeshProUGUI rootText;
 
     [Header("Panel")]
-    [SerializeField] private GameObject gameoverPanel;
     [SerializeField] private GameObject loadingScreen;
-    [SerializeField] private GameObject gameplayPanel;
     [SerializeField] private GameObject pausePanel;
+    [SerializeField] private GameObject gameplayPanel;
+    [SerializeField] private GameObject gameoverPanel;
+    [SerializeField] private GameObject victoryPanel;
 
     [Header("Button")]
     [SerializeField] private Button resumeButton;

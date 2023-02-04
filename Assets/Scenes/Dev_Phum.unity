@@ -14655,15 +14655,28 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_sprite: {fileID: 2068135831}
-  enemies: []
+  mode: 0
+  combatStyle: 1
   targetTag: Enemy
+  anim: {fileID: 2068135830}
+  rb: {fileID: 2068135834}
+  target: {fileID: 265959679}
+  moveSpeed: 3
+  stopDistance: 2
+  activateMelee: 0
+  meleeDistance: 0
+  meleePoint: {fileID: 0}
+  meleeDmg: 0
+  meleeCooldown: 1
+  activateRange: 0
+  rangeDistance: 0
   shootPoint: {fileID: 185138645}
   projectile: {fileID: 5974525540877750231, guid: dd13f2854c5971c469d43f799a8df713, type: 3}
   speed: 5
   dmg: 30
   fireRate: 3
-  anim: {fileID: 2068135830}
   projectileSFX: 
+  meleeSFX: 
 --- !u!1 &2089678638
 GameObject:
   m_ObjectHideFlags: 0

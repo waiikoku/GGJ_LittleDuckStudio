@@ -4,36 +4,87 @@ using UnityEngine;
 
 public class FriendlyAI : Character
 {
-    public List<EnemyCombat> enemies;
+    public AssistMode mode;
+    public CombatStyle combatStyle;
+
+    private List<EnemyCombat> enemies = new List<EnemyCombat>();
     public string targetTag = "Untagged";
+    [SerializeField] private Animator anim;
+
+    [Header("Physic-Based AI")]
+    [SerializeField] private Rigidbody2D rb;
+    private Vector3 direction;
+    [SerializeField] private Transform target;
+    [SerializeField] private float moveSpeed;
+    [SerializeField] private float stopDistance;
+
+    [Header("Melee Combat")]
+    public bool activateMelee = false;
+    public float meleeDistance;
+    public Transform meleePoint;
+    public float meleeDmg;
+    public float meleeCooldown = 1f;
+    private float meleeTimestamp;
+
+    [Header("Range Combat")]
+    public bool activateRange = false;
+    public float rangeDistance;
     public Transform shootPoint;
     public Rigidbody2D projectile;
     public float speed;
     public float dmg;
     public float fireRate = 1f; // bullet per second
     private float fireTimestamp;
-    [SerializeField] private Animator anim;
-
-    [SerializeField] private Rigidbody2D rb;
-    private Vector3 direction;
-    [SerializeField] private Transform target;
-    [SerializeField] private float moveSpeed;
 
     [Header("SoundInfo")]
     [SerializeField] private string projectileSFX;
+    [SerializeField] private string meleeSFX;
+
+    public enum AssistMode
+    {
+        Stand,
+        Follow
+    }
+
+    public enum CombatStyle
+    {
+        Melee,
+        Range
+    }
+
+    protected override void Start()
+    {
+        base.Start();
+
+    }
 
     private void FixedUpdate()
     {
         direction = target.position - transform.position;
-        rb.velocity = direction.normalized * moveSpeed;
+        var currentSpeed = direction.magnitude > stopDistance? moveSpeed: 0;
+        rb.velocity = direction.normalized * currentSpeed;
     }
 
     private void LateUpdate()
     {
-        if(Time.time > fireTimestamp)
+        switch (combatStyle)
         {
-            fireTimestamp = Time.time + (1f / fireRate);
-            ShootProjectile();
+            case CombatStyle.Melee:
+                if (Time.time > meleeTimestamp)
+                {
+                    meleeTimestamp = Time.time + meleeCooldown;
+                    
+                }
+                break;
+            case CombatStyle.Range:
+                if (Time.time > fireTimestamp)
+                {
+                    fireTimestamp = Time.time + (1f / fireRate);
+                    ShootProjectile();
+                }
+                break;
+            default:
+                break;
         }
         if (enemies.Count == 0) return;
         if (enemies[0].currentHealth == 0)
@@ -51,17 +102,7 @@ public class FriendlyAI : Character
             enemies.Add(ec);
         }
     }
-    /*
-    private void OnTriggerExit2D(Collider2D collision)
-    {
-        if (collision.CompareTag(targetTag))
-        {
-            EnemyCombat ec = collision.GetComponentInParent<EnemyCombat>();
-            if (enemies.Contains(ec) == false) return;
-            enemies.Remove(ec);
-        }
-    }
-    */
+
     private void ShootProjectile()
     {
         if (enemies.Count == 0) return;
@@ -74,5 +115,10 @@ public class FriendlyAI : Character
         bulletInstance.gameObject.SetActive(true);
         bulletInstance.velocity = new Vector2(shootDirection.x * speed, shootDirection.y * speed);
         SoundManager.Instance.PlaySFX(projectileSFX);
+    }
+
+    private void OnDrawGizmos()
+    {
+        
     }
 }
