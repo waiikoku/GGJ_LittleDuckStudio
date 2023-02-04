@@ -18,14 +18,19 @@ public class FriendlyAI : Character
     [SerializeField] private Transform target;
     [SerializeField] private float moveSpeed;
     [SerializeField] private float stopDistance;
+    public float distance;
+
+    public bool autoCombat = false;
+    public LayerMask targetLayer;
 
     [Header("Melee Combat")]
     public bool activateMelee = false;
     public float meleeDistance;
-    public Transform meleePoint;
+    public BoxCollider2D hitbox;
     public float meleeDmg;
     public float meleeCooldown = 1f;
     private float meleeTimestamp;
+    [SerializeField] private AnimationEventReceiptor aer;
 
     [Header("Range Combat")]
     public bool activateRange = false;
@@ -36,6 +41,9 @@ public class FriendlyAI : Character
     public float dmg;
     public float fireRate = 1f; // bullet per second
     private float fireTimestamp;
+
+    [Header("VFX")]
+    [SerializeField] private GameObject OnCommand2Attack;
 
     [Header("SoundInfo")]
     [SerializeField] private string projectileSFX;
@@ -56,26 +64,53 @@ public class FriendlyAI : Character
     protected override void Start()
     {
         base.Start();
-        HealthbarManager.Instance.AddHealth(transform, OnHealthUpdate);
+        //HealthbarManager.Instance.AddHealth(transform, OnHealthUpdate);
+        if(aer != null)
+        {
+            aer.OnAttack += MeleeHit;
+            print("Add melee");
+        }
+
     }
 
     private void FixedUpdate()
     {
-        direction = target.position - transform.position;
+        if (mode == AssistMode.Stand) return;
+
+        if(enemies.Count != 0)
+        {
+            distance = Vector3.Distance(enemies[0].transform.position, transform.position);
+            direction = enemies[0].transform.position - transform.position;
+        }
+        else
+        {
+            distance = 99;
+            direction = target.position - transform.position;
+        }
         var currentSpeed = direction.magnitude > stopDistance? moveSpeed: 0;
         rb.velocity = direction.normalized * currentSpeed;
     }
 
     private void LateUpdate()
     {
+        if(mode == AssistMode.Follow)
+        {
+            anim.SetBool("Move", direction.magnitude > stopDistance);
+            IsRight(direction.x > 0);
+        }
+
+        if (autoCombat == false) return;
         switch (combatStyle)
         {
             case CombatStyle.Melee:
                 if (activateMelee == false) return;
-                if (Time.time > meleeTimestamp)
+                if (distance < meleeDistance)
                 {
-                    meleeTimestamp = Time.time + meleeCooldown;
-                    
+                    if (Time.time > meleeTimestamp)
+                    {
+                        meleeTimestamp = Time.time + meleeCooldown;
+                        anim.SetTrigger("Attack");
+                    }
                 }
                 break;
             case CombatStyle.Range:
@@ -94,6 +129,25 @@ public class FriendlyAI : Character
         {
             enemies.RemoveAt(0);
         }
+    }
+
+    public void IsRight(bool value)
+    {
+        if (value)
+        {
+            m_sprite.flipX = false;
+        }
+        else
+        {
+            m_sprite.flipX = true;
+
+        }
+    }
+
+    public void CommandToAttack(bool value)
+    {
+        OnCommand2Attack.SetActive(true);
+        autoCombat = value;
     }
 
     private void OnTriggerStay2D(Collider2D collision)
@@ -120,8 +174,26 @@ public class FriendlyAI : Character
         SoundManager.Instance.PlaySFX(projectileSFX);
     }
 
-    private void OnDrawGizmos()
+    private void MeleeHit()
     {
-        
+        print("Start to detect");
+        Collider2D[] cols = Physics2D.OverlapBoxAll((Vector2)hitbox.transform.position + hitbox.offset,hitbox.size, targetLayer);
+        foreach (var col in cols)
+        {
+            if (col.CompareTag(targetTag))
+            {
+                print($"Hit {col.gameObject.name}");
+                IDamagable damagable = col.GetComponentInParent<IDamagable>();
+                if(damagable != null)
+                {
+                    print("ApplyDmg");
+                    damagable.Damage(meleeDmg);
+                    if (SoundManager.Instance != null)
+                    {
+                        SoundManager.Instance.PlaySFX(meleeSFX);
+                    }
+                }
+            }
+        }
     }
 }

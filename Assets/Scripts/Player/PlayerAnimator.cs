@@ -24,6 +24,7 @@ public class PlayerAnimator : Character
 
     public void Attack()
     {
+        print("Wand attack!");
         m_wand.SetTrigger(animID_Attack);
     }
 

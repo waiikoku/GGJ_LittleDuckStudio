@@ -6,6 +6,7 @@ public class EnemyAnimator : Character
 {
     [SerializeField] private SpriteRenderer sprite;
     [SerializeField] private Animator anim;
+    public bool isFreeze = false;
     private int animID_Attack;
 
     protected override void Start()
@@ -29,5 +30,21 @@ public class EnemyAnimator : Character
             sprite.flipX = true;
 
         }
+    }
+
+    public void Freeze(bool freeze,float duration = 1)
+    {
+        anim.enabled = !freeze;
+        isFreeze = freeze;
+        if(duration != 0)
+        {
+            StartCoroutine(Unfreeze(duration));
+        }
+    }
+
+    private IEnumerator Unfreeze(float duration)
+    {
+        yield return new WaitForSeconds(duration);
+        Freeze(false,0);
     }
 }

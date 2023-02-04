@@ -6,6 +6,8 @@ public class ZoneManager : Singleton<ZoneManager>
 {
     [SerializeField] private float minY;
     [SerializeField] private float maxY;
+
+    [System.Serializable]
     public struct LimitInfo
     {
         public float MinY;

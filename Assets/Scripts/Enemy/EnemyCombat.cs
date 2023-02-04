@@ -8,7 +8,7 @@ public class EnemyCombat : CharacterCombat , IKnockbackable
     public float currentHealth;
     public int maxHealth = 100;
     [SerializeField] private SpriteRenderer sr;
-
+    [SerializeField] private Transform head;
     public GameObject[] dropItems;
 
     [Header("Knockback")]
@@ -17,7 +17,7 @@ public class EnemyCombat : CharacterCombat , IKnockbackable
     [SerializeField] private float delay = 0.15f;
     private void Start()
     {
-        HealthbarManager.Instance?.AddHealth(transform, this);
+        HealthbarManager.Instance?.AddHealth(head, this);
     }
 
     public override void Damage(float dmg)
@@ -30,7 +30,7 @@ public class EnemyCombat : CharacterCombat , IKnockbackable
             SpawnManager.Instance.ConfirmKill();
             DropItem();
             gameObject.SetActive(false);
-            HealthbarManager.Instance.Remove(transform);
+            HealthbarManager.Instance.Remove(head);
             CharacterLayerManager.Instance.Remove(sr, delegate { Destroy(gameObject,8f); });
         }
     }

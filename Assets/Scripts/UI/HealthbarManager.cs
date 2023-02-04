@@ -76,7 +76,15 @@ public class HealthbarManager : Singleton<HealthbarManager>
     }
     public void Remove(Transform tf)
     {
-        int index = tracking.IndexOf(tf);
+        int index = 0;
+        for (int i = 0; i < tracking.Count; i++)
+        {
+            if(tf == tracking[i])
+            {
+                index = i;
+                break;
+            }
+        }
         deleteBar.Enqueue(new DeleteInfo(rt[index], tf));
     }
 }

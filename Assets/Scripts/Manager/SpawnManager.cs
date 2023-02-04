@@ -1,7 +1,6 @@
 using Cinemachine;
 using System.Collections;
 using System.Collections.Generic;
-using TreeEditor;
 using UnityEngine;
 
 public class SpawnManager : Singleton<SpawnManager>
@@ -30,9 +29,11 @@ public class SpawnManager : Singleton<SpawnManager>
     private void Spawn()
     {
         if (spawnPoints.Length < level) return;
+        /*
         focusVC.Follow = focusPoints[level];
         playerVC.gameObject.SetActive(false);
         focusVC.gameObject.SetActive(true);
+        */
         StartCoroutine(SpawnThread());
     }
 
