@@ -1,6 +1,9 @@
 {
   "dependencies": {
+<<<<<<< HEAD
     "com.unity.2d.sprite": "1.0.0",
+=======
+>>>>>>> main
     "com.unity.cinemachine": "2.8.9",
     "com.unity.collab-proxy": "1.17.7",
     "com.unity.feature.2d": "1.0.0",

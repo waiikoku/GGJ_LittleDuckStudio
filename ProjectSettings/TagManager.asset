@@ -4,19 +4,31 @@
 TagManager:
   serializedVersion: 2
   tags:
+<<<<<<< HEAD
   - Enemy
+=======
+  - Wall
+>>>>>>> main
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Obstacle
   - Water
   - UI
+<<<<<<< HEAD
   - Post-Processing
   - Ground
   - Environment
   - Character
   - Hitbox
+=======
+  - Player
+  - Enemy
+  - 
+  - 
+  - 
+>>>>>>> main
   - 
   - 
   - 

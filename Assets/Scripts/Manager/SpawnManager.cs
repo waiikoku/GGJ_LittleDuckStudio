@@ -10,8 +10,12 @@ public class SpawnManager : Singleton<SpawnManager>
     public Transform[] focusPoints;
     public int[] zoneAmount;
     public int level = 0;
+<<<<<<< HEAD
     public CinemachineVirtualCamera playerVC;
     public CinemachineVirtualCamera focusVC;
+=======
+    public CinemachineVirtualCamera cmVC;
+>>>>>>> main
     public Camera cam;
     public Transform player;
     private int spawnedCount;
@@ -27,9 +31,13 @@ public class SpawnManager : Singleton<SpawnManager>
     private void Spawn()
     {
         if (spawnPoints.Length < level) return;
+<<<<<<< HEAD
         focusVC.Follow = focusPoints[level];
         playerVC.gameObject.SetActive(false);
         focusVC.gameObject.SetActive(true);
+=======
+        cmVC.Follow = focusPoints[level];
+>>>>>>> main
         StartCoroutine(SpawnThread());
     }
 
@@ -63,8 +71,12 @@ public class SpawnManager : Singleton<SpawnManager>
         spawnedCount--;
         if(spawnedCount == 0)
         {
+<<<<<<< HEAD
             focusVC.gameObject.SetActive(false);
             playerVC.gameObject.SetActive(true);
+=======
+            cmVC.Follow = player;
+>>>>>>> main
         }
     }
 }

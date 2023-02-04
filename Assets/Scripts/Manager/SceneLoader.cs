@@ -44,6 +44,11 @@ public class SceneLoader : Singleton<SceneLoader>
                 fakeTimer += Time.deltaTime;
                 progress = fakeTimer / fakeDuration;
                 OnLoadProgress?.Invoke(progress);
+<<<<<<< HEAD
+=======
+                if (progress >= 1f) break;
+                yield return null;
+>>>>>>> main
             }
         }
         operation.allowSceneActivation = true;

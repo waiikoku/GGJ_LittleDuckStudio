@@ -53,6 +53,10 @@ public class HealthbarManager : Singleton<HealthbarManager>
         }
     }
 
+<<<<<<< HEAD
+=======
+    /*
+>>>>>>> main
     public void AddHealth(Transform target,CharacterCombat combat)
     {
         Slider slider = Instantiate(prefab,container);
@@ -60,6 +64,7 @@ public class HealthbarManager : Singleton<HealthbarManager>
         tracking.Add(target);
         rt.Add(slider.GetComponent<RectTransform>());
     }
+<<<<<<< HEAD
 
     public void AddHealth(Transform target, Action<float> onHealthUpdate)
     {
@@ -68,6 +73,9 @@ public class HealthbarManager : Singleton<HealthbarManager>
         tracking.Add(target);
         rt.Add(slider.GetComponent<RectTransform>());
     }
+=======
+    */
+>>>>>>> main
 
     public void Add(Transform target,RectTransform rect)
     {
