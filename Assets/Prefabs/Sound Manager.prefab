@@ -183,12 +183,24 @@ MonoBehaviour:
   sfxPlayer: {fileID: 4460703432803095436}
   musicPlaylist:
   - id: 0
-    name: Test
-    clip: {fileID: 0}
+    soundName: BGM
+    clip: {fileID: 8300000, guid: ef7f0466295292f48afd6af151695ea3, type: 3}
     modifyVolume: 0.7
     noLicense: 1
     sourceURL: 
-  sfxPlaylist: []
+  sfxPlaylist:
+  - id: 0
+    soundName: ButtonClick
+    clip: {fileID: 8300000, guid: ef33ad29b8d0f9e40af091063ae7e646, type: 3}
+    modifyVolume: 1
+    noLicense: 0
+    sourceURL: 
+  - id: 1
+    soundName: ButtonClick1
+    clip: {fileID: 8300000, guid: 54590eeb82826984f845d7ec997aa0d5, type: 3}
+    modifyVolume: 1
+    noLicense: 0
+    sourceURL: 
 --- !u!1 &4460703432803095437
 GameObject:
   m_ObjectHideFlags: 0
