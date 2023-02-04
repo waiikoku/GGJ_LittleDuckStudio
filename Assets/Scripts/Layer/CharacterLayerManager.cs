@@ -67,13 +67,12 @@ public class CharacterLayerManager : Singleton<CharacterLayerManager>
 
     private void SortingByY()
     {
-<<<<<<< HEAD
+
         if (characterCount < 2) return;
         characters_tf.Sort((t1, t2) => t2.position.y.CompareTo(t1.position.y));
         characters_sr.Sort((sr1, sr2) => characters_tf.IndexOf(sr2.transform).CompareTo(characters_tf.IndexOf(sr1.transform)));     
         /*
-=======
->>>>>>> main
+
         if(characterCount < 2) return;
         for (int i = 0; i < characterCount; i++)
         {
@@ -96,12 +95,10 @@ public class CharacterLayerManager : Singleton<CharacterLayerManager>
                 characters_sr[i] = lowerSR;
             }
         }
-<<<<<<< HEAD
+
         */
 
-=======
-        //characters_tf.Sort((a,b) => a.transform.position.y.CompareTo(b.transform.position.y));
->>>>>>> main
+
     }
 
     private void UpdateOrder()

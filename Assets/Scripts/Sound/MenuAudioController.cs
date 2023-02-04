@@ -6,10 +6,6 @@ public class MenuAudioController : MonoBehaviour
 {
     public string bgmName;
 
-<<<<<<< HEAD
-
-=======
->>>>>>> main
     private void Start()
     {
         SoundManager.Instance.PlayBGM(bgmName);
