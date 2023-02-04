@@ -33,7 +33,13 @@ public class HealthbarManager : Singleton<HealthbarManager>
     {
         for (int i = 0; i < tracking.Count; i++)
         {
-            hpbar[i].anchoredPosition = cam.WorldToScreenPoint(tracking[i].position);
+            Vector3 screenPoint = cam.WorldToViewportPoint(tracking[i].position);
+            bool onScreen = screenPoint.z > 0 && screenPoint.x > 0 && screenPoint.x < 1 && screenPoint.y > 0 && screenPoint.y < 1;
+            hpbar[i].gameObject.SetActive(onScreen);
+            if (onScreen)
+            {
+                hpbar[i].anchoredPosition = cam.ViewportToScreenPoint(screenPoint);
+            }
         }
         if(deleteBar.Count > 0)
         {
@@ -47,10 +53,10 @@ public class HealthbarManager : Singleton<HealthbarManager>
         }
     }
 
-    public void AddHealth(Transform target,EnemyCombat ec)
+    public void AddHealth(Transform target,CharacterCombat combat)
     {
         Slider slider = Instantiate(prefab,container);
-        ec.OnHealthUpdate += delegate (float value) { slider.value = value; };
+        combat.OnHealthUpdate += delegate (float value) { slider.value = value; };
         tracking.Add(target);
         hpbar.Add(slider.GetComponent<RectTransform>());
     }

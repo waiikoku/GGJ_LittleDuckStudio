@@ -2,7 +2,6 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Windows;
 
 public class CharacterLayerManager : Singleton<CharacterLayerManager>
 {
@@ -10,14 +9,6 @@ public class CharacterLayerManager : Singleton<CharacterLayerManager>
     [SerializeField] private List<SpriteRenderer> characters_sr = new List<SpriteRenderer>();
     [SerializeField] private int characterCount = 0;
 
-    public float topYLimit;
-    public float bottomYLimit;
-
-    [Header("Inject")]
-    [SerializeField] private SpriteRenderer[] injectSR;
-
-    //Cache
-    private Vector3 position;
     private Queue<DeleteInfo> deleteQueue;
 
     public struct DeleteInfo
@@ -34,10 +25,6 @@ public class CharacterLayerManager : Singleton<CharacterLayerManager>
 
     private void Start()
     {
-        for (int i = 0; i < injectSR.Length; i++)
-        {
-            Add(injectSR[i]);
-        }
         deleteQueue = new Queue<DeleteInfo>();
     }
 
@@ -72,7 +59,7 @@ public class CharacterLayerManager : Singleton<CharacterLayerManager>
         characterCount = characters_sr.Count;
     }
 
-    public void Remove(SpriteRenderer sprite,Action callback)
+    public void Remove(SpriteRenderer sprite,Action callback = null)
     {
         if (characters_sr.Contains(sprite) == false) return;
         deleteQueue.Enqueue(new DeleteInfo(sprite,callback));
@@ -80,11 +67,9 @@ public class CharacterLayerManager : Singleton<CharacterLayerManager>
 
     private void SortingByY()
     {
+        if(characterCount < 2) return;
         for (int i = 0; i < characterCount; i++)
         {
-            position = characters_tf[i].position;
-            position.y = Mathf.Clamp(position.y, bottomYLimit, topYLimit);
-            characters_tf[i].position = position;
             var max = i;
             for (var j = i + 1; j < characterCount; j++)
             {
@@ -109,6 +94,7 @@ public class CharacterLayerManager : Singleton<CharacterLayerManager>
 
     private void UpdateOrder()
     {
+        if (characterCount < 2) return;
         for (int i = 0; i < characterCount; i++)
         {
             characters_sr[i].sortingOrder = i;

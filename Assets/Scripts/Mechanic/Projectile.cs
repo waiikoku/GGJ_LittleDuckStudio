@@ -13,7 +13,7 @@ public class Projectile : MonoBehaviour
     {
         dmg = damage;
     }
-    private void OnTriggerEnter2D(Collider2D collision)
+    protected virtual void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag(targetTag))
         {
@@ -22,7 +22,17 @@ public class Projectile : MonoBehaviour
             {
                 damagable.Damage(dmg);
             }
+            IKnockbackable knockbackable = collision.GetComponentInParent<IKnockbackable>();
+            if(knockbackable != null)
+            {
+                knockbackable.Knockback(transform.position);
+            }
+            Destroy(gameObject);
         }
     }
 
+    private void OnBecameInvisible()
+    {
+        Destroy(gameObject);
+    }
 }

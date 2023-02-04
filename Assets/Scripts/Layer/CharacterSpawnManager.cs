@@ -23,8 +23,8 @@ public class CharacterSpawnManager : MonoBehaviour
         {
             Character go = Instantiate(prefab, container);
             go.gameObject.name = $"Clone({i})";
-            clm.Add(go.sr);
-            RandomColor(go.sr);
+            clm.Add(go.Sprite);
+            RandomColor(go.Sprite);
             RandomY(go.transform);
         }
     }

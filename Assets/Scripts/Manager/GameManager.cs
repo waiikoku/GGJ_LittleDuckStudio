@@ -27,4 +27,26 @@ public class GameManager : Singleton<GameManager>
         OnRootChange?.Invoke(rootAmount);
         OnRootUpdate?.Invoke((float)rootAmount / (float)desireRoot);
     }
+
+    #region PauseSystem
+    public bool isPause = false;
+    public Action<bool> OnPause;
+
+    public void Pause(bool pause)
+    {
+        isPause = pause;
+        SetTimescale(isPause ? 0 : 1);
+        OnPause?.Invoke(isPause);
+    }
+
+    public void TogglePause()
+    {
+        Pause(!isPause);
+    }
+
+    private void SetTimescale(float value)
+    {
+        Time.timeScale = Mathf.Clamp(value, 0f, 1f);
+    }
+    #endregion
 }

@@ -11,6 +11,7 @@ public class TriggerZone : MonoBehaviour
         if (collision.CompareTag(targetTag))
         {
             SpawnManager.Instance.TriggerZone();
+            Destroy(gameObject);
         }
     }
 }

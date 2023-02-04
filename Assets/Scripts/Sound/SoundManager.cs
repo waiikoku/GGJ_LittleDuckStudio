@@ -1,5 +1,7 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Mathematics;
 using UnityEngine;
 
 public class SoundManager : Singleton<SoundManager>
@@ -23,6 +25,8 @@ public class SoundManager : Singleton<SoundManager>
     public Sound[] musicPlaylist;
     public Sound[] sfxPlaylist;
 
+    public Action<float> OnBgmVolume;
+    public Action<float> OnSfxVolume;
     private Sound FindMusic(int id)
     {
         return System.Array.Find(musicPlaylist, music => music.id == id);
@@ -63,6 +67,7 @@ public class SoundManager : Singleton<SoundManager>
         bgmPlayer.volume -= bgmVolume; //Clear Old volume
         bgmVolume = volume;
         bgmPlayer.volume += bgmVolume; //Add New volume
+        OnBgmVolume?.Invoke(bgmVolume);
     }
 
 }
