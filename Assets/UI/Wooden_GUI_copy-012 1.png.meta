@@ -507,10 +507,10 @@ TextureImporter:
       name: Wooden_GUI_copy-012 1_19
       rect:
         serializedVersion: 2
-        x: 1730
-        y: 1248
-        width: 678
-        height: 127
+        x: 1706
+        y: 1226
+        width: 721
+        height: 170
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
