@@ -1,6 +1,7 @@
 using Cinemachine;
 using System.Collections;
 using System.Collections.Generic;
+using TreeEditor;
 using UnityEngine;
 
 public class SpawnManager : Singleton<SpawnManager>
@@ -8,6 +9,8 @@ public class SpawnManager : Singleton<SpawnManager>
     public GameObject[] prefabs;
     public Transform[] spawnPoints;
     public Transform[] focusPoints;
+    public Transform[] lockNWave;
+    public Transform confine;
     public int[] zoneAmount;
     public int level = 0;
     public CinemachineVirtualCamera playerVC;
@@ -50,11 +53,12 @@ public class SpawnManager : Singleton<SpawnManager>
             yield return new WaitForSeconds(Random.Range(minDelay,maxDelay));
         }
         level++;
+        lockNWave[level].GetComponent<BoxCollider2D>().isTrigger = false;
     }
 
     private GameObject goSpawn(Vector2 position)
     {
-        GameObject go = Instantiate(prefabs[Random.Range(0, prefabs.Length)], position + Random.insideUnitCircle * Random.Range(0f, 3f), Quaternion.identity);
+        GameObject go = Instantiate(prefabs[Random.Range(0, prefabs.Length)], position + Random.insideUnitCircle * Random.Range(0f, 0.5f), Quaternion.identity);
         return go;
     }
 
@@ -64,7 +68,8 @@ public class SpawnManager : Singleton<SpawnManager>
         if(spawnedCount == 0)
         {
             focusVC.gameObject.SetActive(false);
-            playerVC.gameObject.SetActive(true);
+            playerVC.gameObject.SetActive(true);    
+            lockNWave[level].GetComponent<BoxCollider2D>().isTrigger = true;
         }
     }
 }
