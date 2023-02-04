@@ -21,11 +21,15 @@ public class BossController : MonoBehaviour
     public Vector2 attackRangeNormal;
     public LayerMask playerLayer;
     public float chargeRange;
-    private bool bossIsStun = false;
+    public float normalRange;
+    private bool bossIsStop = false;
+    private bool endProcess = false;
 
     [Header("Timer")]
     public float chargeAttackNextTime;
     public float chargeAttackDelay;
+    public float rockAttackNextTime;
+    public float rockAttackDelay;
     public float bossStunTime;
 
     private void Awake()
@@ -34,14 +38,25 @@ public class BossController : MonoBehaviour
     }
     private void Update()
     {
-        if (!bossIsStun)
+        if (!bossIsStop)
         {
             SelectAttack();
         }
     }
     void SelectAttack()
     {
-        
+        if (Distance() > normalRange && Distance() < chargeRange)
+        {
+            Move();
+        }
+        else if (Distance() < normalRange)
+        {
+            NormalAttack();
+        }
+        else if (Time.time >= rockAttackNextTime && Distance() > chargeRange)
+        {
+            ThrowRock();
+        }
     }
     void Move()
     {
@@ -57,10 +72,15 @@ public class BossController : MonoBehaviour
             //damageCode
         }
     }
+    void ThrowRock()
+    {
+        
+    }
     bool ChargeAttackCheck()
     {
         if(Time.time >= chargeAttackNextTime && Distance() > chargeRange)
         {
+            bossIsStop = true;
             return true;
         }
         return false;
@@ -69,7 +89,7 @@ public class BossController : MonoBehaviour
     {
         if (ChargeAttackCheck())
         {
-            ChargeAttackAnima();
+            StartCoroutine(ChargeAttackAnima());
             if (collision.gameObject.tag == "Player")
             {
                 //DoDamage
@@ -81,19 +101,21 @@ public class BossController : MonoBehaviour
                 StartCoroutine(Stun());
                 chargeAttackNextTime = Time.time + chargeAttackDelay;
             }
-
         }
     }
-    void ChargeAttackAnima()
+    IEnumerator ChargeAttackAnima()
     {
-        
+        //moveBack method
+        yield return new WaitForSeconds(1);// method calcu time to target
+        //animetion move
+        transform.position += transform.forward * speed * Time.deltaTime;
     }
+
     IEnumerator Stun()
     {
-        bossIsStun = true;
         //animetion Stun
         yield return new WaitForSeconds(bossStunTime);
-        bossIsStun= false;
+        bossIsStop= false;
     }
     float Distance()
     {
