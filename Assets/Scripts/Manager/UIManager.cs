@@ -26,10 +26,13 @@ public class UIManager : Singleton<UIManager>
     [SerializeField] private Slider musicSlide;
     [SerializeField] private Slider sfxSlide;
     [SerializeField] private Slider healthBar;
+
+    [Header("Image")]
+    [SerializeField] private Image loadingFill;
     protected override void Awake()
     {
         base.Awake();
-        SetupRoot();
+        //SetupRoot();
     }
 
     private void Start()
@@ -42,6 +45,8 @@ public class UIManager : Singleton<UIManager>
         musicSlide.onValueChanged.AddListener(value => SoundManager.Instance.BGM_ChangeVolume(value));
         DataPersistenceManager.Instance.OnConfig += data => SetVolume(data.musicVolume);
         DataPersistenceManager.Instance.RequestData();
+
+        SceneLoader.Instance.OnLoadProgress += delegate (float value) { loadingFill.fillAmount = value; };
     }
 
     private void SetupRoot()
@@ -72,5 +77,11 @@ public class UIManager : Singleton<UIManager>
     public void UpdateHealth(float percentage)
     {
         healthBar.value = percentage;
+    }
+
+    public void LoadScene(string name)
+    {
+        loadingScreen.SetActive(true);
+        StartCoroutine(SceneLoader.Instance.LoadSceneAsync(name, delegate { loadingScreen.SetActive(false); }));
     }
 }
