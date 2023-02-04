@@ -36,7 +36,7 @@ public class SpawnManager : Singleton<SpawnManager>
         playerVC.gameObject.SetActive(false);
         focusVC.gameObject.SetActive(true);
 
-        cmVC.Follow = focusPoints[level];
+        //cmVC.Follow = focusPoints[level];
 
         StartCoroutine(SpawnThread());
     }

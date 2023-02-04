@@ -1,5 +1,67 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &3035633852762941518
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4866754578580681211}
+  m_Layer: 9
+  m_Name: AttackPoint2
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4866754578580681211
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3035633852762941518}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -2.84, y: 0.88, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 9045901161999461113}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &4310860098823955511
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5432524343335673517}
+  m_Layer: 9
+  m_Name: AttackPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5432524343335673517
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4310860098823955511}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 2.84, y: 0.88, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 9045901161999461113}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &9045901160353702555
 GameObject:
   m_ObjectHideFlags: 0
@@ -156,7 +218,7 @@ GameObject:
   - component: {fileID: 9045901160791718695}
   m_Layer: 9
   m_Name: Weapon Hold
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -211,6 +273,8 @@ Transform:
   m_Children:
   - {fileID: 9045901160353702554}
   - {fileID: 9045901160791718695}
+  - {fileID: 5432524343335673517}
+  - {fileID: 4866754578580681211}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -275,12 +339,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentHealth: 100
   maxHealth: 100
+  damage: 1
   sr: {fileID: 9045901160353702552}
   dropItems:
   - {fileID: 8655221523277842721, guid: d94f4d434be3ac24baf2cecf33976753, type: 3}
   movement: {fileID: 9045901161999461112}
   strength: 3000
   delay: 0.15
+  attackPoint: {fileID: 5432524343335673517}
+  attackPoint2: {fileID: 4866754578580681211}
+  attackRange: 4
+  playerLayer:
+    serializedVersion: 2
+    m_Bits: 1024
+  attackTime: 0
+  attackDelay: 1
 --- !u!114 &9045901161999461112
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -296,7 +369,7 @@ MonoBehaviour:
   rb: {fileID: 9045901161999461114}
   player: {fileID: 0}
   speed: 30
-  stopDistance: 4
+  stopDistance: 6
   distance: 0
   ec: {fileID: 9045901161999461108}
   ea: {fileID: 2034692020}
