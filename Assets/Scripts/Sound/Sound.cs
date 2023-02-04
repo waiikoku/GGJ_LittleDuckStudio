@@ -6,9 +6,9 @@ using UnityEngine;
 public class Sound
 {
     public int id;
-    public string name;
+    public string soundName;
     public AudioClip clip;
-    public float modifyVolume;
+    public float modifyVolume = 1;
 
     [Header("License Information")]
     public bool noLicense;
