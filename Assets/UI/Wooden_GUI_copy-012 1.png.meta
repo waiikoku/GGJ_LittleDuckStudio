@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 807c27d3c9a6c744fba9c2f34b57ab04
+guid: 913bab5666a063549bad504de49452f6
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -105,7 +105,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Wooden GUI copy-01_0
+      name: Wooden_GUI_copy-012 1_0
       rect:
         serializedVersion: 2
         x: 501
@@ -114,19 +114,19 @@ TextureImporter:
         height: 208
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
+      border: {x: 25, y: 30, z: 25, w: 20}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 16e3277118d94e045bc78408bc83d175
-      internalID: 1505896446
+      spriteID: fe5ad4e7a893a5d4b8e54182c8abf151
+      internalID: 1989417738
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Wooden GUI copy-01_1
+      name: Wooden_GUI_copy-012 1_1
       rect:
         serializedVersion: 2
         x: 1860
@@ -135,19 +135,19 @@ TextureImporter:
         height: 208
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
+      border: {x: 25, y: 30, z: 25, w: 20}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 12cbfe0f9960cd649927b8a8cddf5c4f
-      internalID: -1337284923
+      spriteID: e4817cb115960be4997becc4e5925d04
+      internalID: -711250268
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Wooden GUI copy-01_2
+      name: Wooden_GUI_copy-012 1_2
       rect:
         serializedVersion: 2
         x: 340
@@ -161,14 +161,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: d54b9027d4cbe76438d431e2394ce1ba
-      internalID: -1838728920
+      spriteID: e0a21a67631675443bf0e16abec822c4
+      internalID: -913214724
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Wooden GUI copy-01_3
+      name: Wooden_GUI_copy-012 1_3
       rect:
         serializedVersion: 2
         x: 494
@@ -182,14 +182,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 1d134f42ef630fe4aa61b553b7a888b5
-      internalID: 868937522
+      spriteID: e688a58c53b70414d8a0ef7a15122000
+      internalID: 1857859731
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Wooden GUI copy-01_4
+      name: Wooden_GUI_copy-012 1_4
       rect:
         serializedVersion: 2
         x: 648
@@ -203,14 +203,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: be09934e96310fa4792bee2e8cc5ff10
-      internalID: -951006643
+      spriteID: b924c15214edc9a44b33dfbb4cabebd9
+      internalID: -328736690
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Wooden GUI copy-01_5
+      name: Wooden_GUI_copy-012 1_5
       rect:
         serializedVersion: 2
         x: 801
@@ -224,14 +224,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 8eee21b01c28a734ba60e977ac003e27
-      internalID: 501767948
+      spriteID: 8ff3ba0264d53c84aad026700cace494
+      internalID: -137511364
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Wooden GUI copy-01_6
+      name: Wooden_GUI_copy-012 1_6
       rect:
         serializedVersion: 2
         x: 955
@@ -245,14 +245,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 14779da6f8962284ca669fe6e451da94
-      internalID: -58740176
+      spriteID: 70e623080c95cb7409495cec59ed2c0d
+      internalID: -1149808106
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Wooden GUI copy-01_7
+      name: Wooden_GUI_copy-012 1_7
       rect:
         serializedVersion: 2
         x: 1730
@@ -266,14 +266,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 9b4b3c4348e85074ba9e80021abf6f01
-      internalID: -2001737297
+      spriteID: 1062d954bc971b447b796e06a2c120b2
+      internalID: -1021915825
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Wooden GUI copy-01_8
+      name: Wooden_GUI_copy-012 1_8
       rect:
         serializedVersion: 2
         x: 340
@@ -287,14 +287,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 78cf883ef569dca48ba7f164aedd9b36
-      internalID: -347528714
+      spriteID: 66783eee0e928204e99724a562e20dd8
+      internalID: -1345811474
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Wooden GUI copy-01_9
+      name: Wooden_GUI_copy-012 1_9
       rect:
         serializedVersion: 2
         x: 494
@@ -308,14 +308,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 8121db5dabb43da4a9861bb0b80e7eda
-      internalID: -1786826357
+      spriteID: 992c5b06f5d6a744f95a6a351b5a0729
+      internalID: 1249297752
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Wooden GUI copy-01_10
+      name: Wooden_GUI_copy-012 1_10
       rect:
         serializedVersion: 2
         x: 648
@@ -329,14 +329,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 496db0ff82b9ea44d905ffe704341134
-      internalID: -644374931
+      spriteID: 7924d6410d2cb794c83bce4dd595e4e3
+      internalID: 1857432778
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Wooden GUI copy-01_11
+      name: Wooden_GUI_copy-012 1_11
       rect:
         serializedVersion: 2
         x: 801
@@ -350,14 +350,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 15c07ef609680e440ac19d604e217be0
-      internalID: -804994671
+      spriteID: 3cfec5fdb6e00e94387cf0f949e3ee23
+      internalID: 427152519
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Wooden GUI copy-01_12
+      name: Wooden_GUI_copy-012 1_12
       rect:
         serializedVersion: 2
         x: 955
@@ -371,14 +371,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 9db73153201427e4aa7762198e6ab21d
-      internalID: -1248476331
+      spriteID: 4eff594c5e93fef4684669b843c89d4c
+      internalID: 26362315
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Wooden GUI copy-01_13
+      name: Wooden_GUI_copy-012 1_13
       rect:
         serializedVersion: 2
         x: 1730
@@ -392,14 +392,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 1c3c8355dbd2c594c9312c476e2eec5e
-      internalID: -858469286
+      spriteID: f1da5ba07b7ca0e40a09b820efa45b48
+      internalID: 1514296474
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Wooden GUI copy-01_14
+      name: Wooden_GUI_copy-012 1_14
       rect:
         serializedVersion: 2
         x: 340
@@ -413,14 +413,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: b1e5f841553c9b94ba9d42956781acf1
-      internalID: 416796003
+      spriteID: ed7705d6d2fc75745995a06810c51c05
+      internalID: -912307917
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Wooden GUI copy-01_15
+      name: Wooden_GUI_copy-012 1_15
       rect:
         serializedVersion: 2
         x: 494
@@ -434,14 +434,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 02de3177763c0b746975fbdcc71b6bd4
-      internalID: -804521131
+      spriteID: 20857526197d9564faaf32e8ddeb2494
+      internalID: -2078558083
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Wooden GUI copy-01_16
+      name: Wooden_GUI_copy-012 1_16
       rect:
         serializedVersion: 2
         x: 648
@@ -455,14 +455,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: beaa0d4aa57fd014397105b2f8d1d659
-      internalID: 245286581
+      spriteID: 77274ebc374fbe844a9c6255d801b98d
+      internalID: 1799305345
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Wooden GUI copy-01_17
+      name: Wooden_GUI_copy-012 1_17
       rect:
         serializedVersion: 2
         x: 801
@@ -476,14 +476,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 0d244eb1af3903045ab568e15f146873
-      internalID: 1568833902
+      spriteID: 0ff50945d39c97a46acf6fa135f19737
+      internalID: 387286160
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Wooden GUI copy-01_18
+      name: Wooden_GUI_copy-012 1_18
       rect:
         serializedVersion: 2
         x: 955
@@ -497,14 +497,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: e2a9f9f38692fb4448f984b303c5e297
-      internalID: -175889910
+      spriteID: 0e6b235499c1d654fbc2c434a0a8d852
+      internalID: 1207901144
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Wooden GUI copy-01_19
+      name: Wooden_GUI_copy-012 1_19
       rect:
         serializedVersion: 2
         x: 1730
@@ -518,14 +518,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: cd8ce71828ebe734dad2fad5a4ae5537
-      internalID: -124114443
+      spriteID: 3c927b59fa040f64f98d386daa66ef5f
+      internalID: 1867070049
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Wooden GUI copy-01_20
+      name: Wooden_GUI_copy-012 1_20
       rect:
         serializedVersion: 2
         x: 420
@@ -539,14 +539,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 2ea9fbb1eda9a4a448a742c929bb486b
-      internalID: 1190981378
+      spriteID: 979ecbdf03611a54480d707d8589f52c
+      internalID: 804360265
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Wooden GUI copy-01_21
+      name: Wooden_GUI_copy-012 1_21
       rect:
         serializedVersion: 2
         x: 769
@@ -555,40 +555,40 @@ TextureImporter:
         height: 139
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
+      border: {x: 20, y: 20, z: 20, w: 20}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 4a7402ee33a752446be3a13b5b3c18e8
-      internalID: 420646812
+      spriteID: 2977d7bc5de047d4a97879efded8d424
+      internalID: 1063224312
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Wooden GUI copy-01_22
+      name: Wooden_GUI_copy-012 1_22
       rect:
         serializedVersion: 2
-        x: 111
+        x: 115
         y: 50
         width: 1193
         height: 897
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
-      border: {x: 337, y: 253, z: 308, w: 262}
+      border: {x: 350, y: 275, z: 350, w: 275}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: e40597dfbcd15cd42ab0f5d87b350c79
-      internalID: -1263584056
+      spriteID: 6e7f32b0c285f0b4e857738a72090f04
+      internalID: 1010506787
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Wooden GUI copy-01_23
+      name: Wooden_GUI_copy-012 1_23
       rect:
         serializedVersion: 2
         x: 1476
@@ -597,13 +597,13 @@ TextureImporter:
         height: 897
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
+      border: {x: 350, y: 275, z: 350, w: 275}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 18c002ea7d5bd3046bc4c6ab44e350e4
-      internalID: 870808336
+      spriteID: 8f477291b1c485e409af53685b6ea109
+      internalID: -993175938
       vertices: []
       indices: 
       edges: []
@@ -611,7 +611,7 @@ TextureImporter:
     outline: []
     physicsShape: []
     bones: []
-    spriteID: 5e97eb03825dee720800000000000000
+    spriteID: 7b39fea57ae8ad7439271cbfc4924b79
     internalID: 0
     vertices: []
     indices: 
@@ -619,30 +619,30 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Wooden GUI copy-01_11: -804994671
-      Wooden GUI copy-01_0: 1505896446
-      Wooden GUI copy-01_6: -58740176
-      Wooden GUI copy-01_8: -347528714
-      Wooden GUI copy-01_16: 245286581
-      Wooden GUI copy-01_19: -124114443
-      Wooden GUI copy-01_7: -2001737297
-      Wooden GUI copy-01_13: -858469286
-      Wooden GUI copy-01_15: -804521131
-      Wooden GUI copy-01_18: -175889910
-      Wooden GUI copy-01_22: -1263584056
-      Wooden GUI copy-01_23: 870808336
-      Wooden GUI copy-01_1: -1337284923
-      Wooden GUI copy-01_5: 501767948
-      Wooden GUI copy-01_17: 1568833902
-      Wooden GUI copy-01_4: -951006643
-      Wooden GUI copy-01_12: -1248476331
-      Wooden GUI copy-01_21: 420646812
-      Wooden GUI copy-01_9: -1786826357
-      Wooden GUI copy-01_3: 868937522
-      Wooden GUI copy-01_20: 1190981378
-      Wooden GUI copy-01_10: -644374931
-      Wooden GUI copy-01_2: -1838728920
-      Wooden GUI copy-01_14: 416796003
+      Wooden_GUI_copy-012 1_9: 1249297752
+      Wooden_GUI_copy-012 1_21: 1063224312
+      Wooden_GUI_copy-012 1_14: -912307917
+      Wooden_GUI_copy-012 1_1: -711250268
+      Wooden_GUI_copy-012 1_2: -913214724
+      Wooden_GUI_copy-012 1_5: -137511364
+      Wooden_GUI_copy-012 1_7: -1021915825
+      Wooden_GUI_copy-012 1_23: -993175938
+      Wooden_GUI_copy-012 1_13: 1514296474
+      Wooden_GUI_copy-012 1_16: 1799305345
+      Wooden_GUI_copy-012 1_12: 26362315
+      Wooden_GUI_copy-012 1_18: 1207901144
+      Wooden_GUI_copy-012 1_11: 427152519
+      Wooden_GUI_copy-012 1_10: 1857432778
+      Wooden_GUI_copy-012 1_4: -328736690
+      Wooden_GUI_copy-012 1_15: -2078558083
+      Wooden_GUI_copy-012 1_8: -1345811474
+      Wooden_GUI_copy-012 1_3: 1857859731
+      Wooden_GUI_copy-012 1_20: 804360265
+      Wooden_GUI_copy-012 1_22: 1010506787
+      Wooden_GUI_copy-012 1_17: 387286160
+      Wooden_GUI_copy-012 1_19: 1867070049
+      Wooden_GUI_copy-012 1_6: -1149808106
+      Wooden_GUI_copy-012 1_0: 1989417738
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0
