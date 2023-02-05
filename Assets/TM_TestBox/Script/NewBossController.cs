@@ -60,27 +60,33 @@ public class NewBossController : MonoBehaviour
     }
     private void Update()
     {
-        SelectAttack();
-        if(moveCon3)
+        if (bossHP <= 0)
         {
-            if (!moveToPlayer)
+            bAnima.Play("Die");
+        }
+        else
+        {
+            SelectAttack();
+            if (moveCon3)
             {
-                MoveToChargeLocation();
+                if (!moveToPlayer)
+                {
+                    MoveToChargeLocation();
+                }
+                else
+                {
+                    MoveToPlayer();
+                }
             }
-            else
+            if (moveCon1)
             {
-                MoveToPlayer();
+                NormalAttack();
+            }
+            if (moveCon2)
+            {
+                ThrowRock();
             }
         }
-        if (moveCon1)
-        {
-            NormalAttack();
-        }
-        if (moveCon2)
-        {
-            ThrowRock();
-        }
-
     }
     void SelectAttack()
     {
