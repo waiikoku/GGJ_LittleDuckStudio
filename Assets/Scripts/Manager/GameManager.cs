@@ -48,5 +48,10 @@ public class GameManager : Singleton<GameManager>
     {
         Time.timeScale = Mathf.Clamp(value, 0f, 1f);
     }
+
+    public void UseRoot(int v)
+    {
+        rootAmount -= v;
+    }
     #endregion
 }

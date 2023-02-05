@@ -2471,18 +2471,6 @@ MonoBehaviour:
           m_StringArgument: ButtonClick
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 4935909558880044122}
-        m_TargetAssemblyTypeName: UIManager, Assembly-CSharp
-        m_MethodName: LoadScene
-        m_Mode: 5
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: Gameplay
-          m_BoolArgument: 0
-        m_CallState: 2
       - m_Target: {fileID: 990356917372778453}
         m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
         m_MethodName: SetActive
@@ -2493,6 +2481,18 @@ MonoBehaviour:
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 4935909558880044122}
+        m_TargetAssemblyTypeName: UIManager, Assembly-CSharp
+        m_MethodName: LoadScene
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: Gameplay
           m_BoolArgument: 0
         m_CallState: 2
       - m_Target: {fileID: 3247700481128547912}
@@ -10119,7 +10119,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rootAmount: 0
   desireRoot: 5
-  rootItem: {fileID: 0}
+  rootItem: {fileID: 11400000, guid: a2dcc201197515a478f01025b3341aa5, type: 2}
   isPause: 0
 --- !u!1 &4935909558880044124
 GameObject:
@@ -10166,7 +10166,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0ea985327295c4443809a71493c1740e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rootData: {fileID: 0}
+  rootData: {fileID: 11400000, guid: a2dcc201197515a478f01025b3341aa5, type: 2}
   rootIcon: {fileID: 2267874472569806007}
   rootGuage: {fileID: 6823427049389971845}
   rootText: {fileID: 0}
@@ -10175,12 +10175,13 @@ MonoBehaviour:
   gameplayPanel: {fileID: 3247700481128547912}
   gameoverPanel: {fileID: 2647135551698283699}
   victoryPanel: {fileID: 4022275135110436542}
+  menuPanel: {fileID: 0}
   resumeButton: {fileID: 6823427048611069316}
   returnToMenuButton: {fileID: 6823427049592186607}
   musicSlide: {fileID: 6823427048278424291}
   sfxSlide: {fileID: 6823427049601031962}
   healthBar: {fileID: 6823427048396432566}
-  loadingFill: {fileID: 6823427047969597232}
+  progressBar: {fileID: 6823427048335563507}
 --- !u!114 &4935909558880044123
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10195,8 +10196,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rt: []
   tracking: []
-  container: {fileID: 0}
-  prefab: {fileID: 0}
+  container: {fileID: 1514679544590074604}
+  prefab: {fileID: 705058491235175111, guid: de11cba51fceb0149bb54d2d8d5c8971, type: 3}
 --- !u!1 &4935909558927002492
 GameObject:
   m_ObjectHideFlags: 0
@@ -10423,19 +10424,33 @@ MonoBehaviour:
   sfxVolume: 1
   voiceVolume: 1
   ambientVolume: 1
+  muteBGM: 0
+  muteSFX: 0
   bgmPlayer: {fileID: 4935909558538432554}
   sfxPlayer: {fileID: 4935909559379440405}
   musicPlaylist:
-  - id: 0
+  - id: 1
     soundName: BGM
     clip: {fileID: 8300000, guid: 230e2c2473a1d2a438e4c71a130324b1, type: 3}
-    modifyVolume: 0.7
+    modifyVolume: 1
     noLicense: 1
     sourceURL: 
-  - id: 1
-    soundName: BGM2
+  - id: 2
+    soundName: Final Fantasy
     clip: {fileID: 8300000, guid: f763668a84df3c24a89dbde787dc23a9, type: 3}
-    modifyVolume: 0.7
+    modifyVolume: 1
+    noLicense: 1
+    sourceURL: 
+  - id: 3
+    soundName: Ancient Forest
+    clip: {fileID: 8300000, guid: 475500d05364fe54396b45f235401b65, type: 3}
+    modifyVolume: 0.2
+    noLicense: 1
+    sourceURL: 
+  - id: 4
+    soundName: Burning Soul
+    clip: {fileID: 8300000, guid: a1c31e00a3d0f3b4db485ecd95287b7b, type: 3}
+    modifyVolume: 1
     noLicense: 1
     sourceURL: 
   sfxPlaylist:
@@ -10448,6 +10463,36 @@ MonoBehaviour:
   - id: 1
     soundName: ButtonClick1
     clip: {fileID: 8300000, guid: 54590eeb82826984f845d7ec997aa0d5, type: 3}
+    modifyVolume: 1
+    noLicense: 0
+    sourceURL: 
+  - id: 2
+    soundName: Player Attack
+    clip: {fileID: 8300000, guid: 1db6b4a324b0a824bba8b5992b139cb2, type: 3}
+    modifyVolume: 1
+    noLicense: 0
+    sourceURL: 
+  - id: 3
+    soundName: LB Attack
+    clip: {fileID: 8300000, guid: 67504415da7b8bd49a05b5308aae52b1, type: 3}
+    modifyVolume: 1
+    noLicense: 0
+    sourceURL: 
+  - id: 4
+    soundName: SM Punch
+    clip: {fileID: 8300000, guid: 1b7ec62eab3acf842bd434f529d68f6b, type: 3}
+    modifyVolume: 1
+    noLicense: 0
+    sourceURL: 
+  - id: 5
+    soundName: TR Beam
+    clip: {fileID: 8300000, guid: 36a9ec80fb3b26e449c4adf8313295a6, type: 3}
+    modifyVolume: 1
+    noLicense: 0
+    sourceURL: 
+  - id: 5
+    soundName: LB Died
+    clip: {fileID: 8300000, guid: 5915bd46ee2400c45bb3b03abebbde2d, type: 3}
     modifyVolume: 1
     noLicense: 0
     sourceURL: 
@@ -13693,6 +13738,18 @@ MonoBehaviour:
           m_StringArgument: ButtonClick1
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 4935909559960574307}
+        m_TargetAssemblyTypeName: SoundManager, Assembly-CSharp
+        m_MethodName: ToggleMuteBGM
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   m_IsOn: 1
 --- !u!1 &6823427048396432564
 GameObject:
@@ -13759,7 +13816,7 @@ MonoBehaviour:
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
     m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
     m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
+    m_DisabledColor: {r: 1, g: 1, b: 1, a: 0.5019608}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
   m_SpriteState:
@@ -13773,7 +13830,7 @@ MonoBehaviour:
     m_PressedTrigger: Pressed
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
-  m_Interactable: 1
+  m_Interactable: 0
   m_TargetGraphic: {fileID: 0}
   m_FillRect: {fileID: 6823427048289030561}
   m_HandleRect: {fileID: 0}
@@ -16302,7 +16359,7 @@ MonoBehaviour:
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
     m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
     m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
+    m_DisabledColor: {r: 1, g: 1, b: 1, a: 0.5019608}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
   m_SpriteState:
@@ -16316,7 +16373,7 @@ MonoBehaviour:
     m_PressedTrigger: Pressed
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
-  m_Interactable: 1
+  m_Interactable: 0
   m_TargetGraphic: {fileID: 0}
   m_FillRect: {fileID: 6823427049147342182}
   m_HandleRect: {fileID: 0}
@@ -16324,7 +16381,7 @@ MonoBehaviour:
   m_MinValue: 0
   m_MaxValue: 1
   m_WholeNumbers: 0
-  m_Value: 0.51
+  m_Value: 0
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -17223,6 +17280,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
+      - m_Target: {fileID: 4935909560149063391}
+        m_TargetAssemblyTypeName: CharacterLayerManager, Assembly-CSharp
+        m_MethodName: ClearAll
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
 --- !u!95 &9109890357119799388
 Animator:
   serializedVersion: 5
@@ -17338,6 +17407,18 @@ MonoBehaviour:
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: ButtonClick1
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 4935909559960574307}
+        m_TargetAssemblyTypeName: SoundManager, Assembly-CSharp
+        m_MethodName: ToggleMuteSFX
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
   m_IsOn: 1

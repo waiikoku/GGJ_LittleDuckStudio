@@ -17,6 +17,9 @@ public class SoundManager : Singleton<SoundManager>
     [Range(0f, 1f)]
     public float ambientVolume;
 
+    public bool muteBGM = false;
+    public bool muteSFX = false;
+
     [Header("Audio Player")]
     public AudioSource bgmPlayer;
     public AudioSource sfxPlayer;
@@ -125,4 +128,48 @@ public class SoundManager : Singleton<SoundManager>
         OnBgmVolume?.Invoke(bgmVolume);
     }
 
+
+    public void SFX_ChangeVolume(float volume)
+    {
+        sfxPlayer.volume -= sfxVolume; //Clear Old volume
+        sfxVolume = volume;
+        sfxPlayer.volume += sfxVolume; //Add New volume
+        OnSfxVolume?.Invoke(sfxVolume);
+    }
+
+    public void MuteBGM(bool value)
+    {
+        muteBGM = value;
+        if (value)
+        {
+            bgmPlayer.volume = 0;
+        }
+        else
+        {
+            bgmPlayer.volume = bgmVolume;
+        }
+    }
+
+    public void ToggleMuteBGM()
+    {
+        MuteBGM(!muteBGM);
+    }
+
+    public void MuteSFX(bool value)
+    {
+        muteSFX = value;
+        if (value)
+        {
+            sfxPlayer.volume = 0;
+        }
+        else
+        {
+            sfxPlayer.volume = sfxVolume;
+        }
+    }
+
+    public void ToggleMuteSFX()
+    {
+        MuteSFX(!muteSFX);
+    }
 }

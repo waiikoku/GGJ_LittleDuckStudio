@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using Button = UnityEngine.UI.Button;
+
 public class UIManager : Singleton<UIManager>
 {
     [Header("Root")]
@@ -17,6 +19,7 @@ public class UIManager : Singleton<UIManager>
     [SerializeField] private GameObject gameplayPanel;
     [SerializeField] private GameObject gameoverPanel;
     [SerializeField] private GameObject victoryPanel;
+    [SerializeField] private GameObject menuPanel;
 
     [Header("Button")]
     [SerializeField] private Button resumeButton;
@@ -26,9 +29,7 @@ public class UIManager : Singleton<UIManager>
     [SerializeField] private Slider musicSlide;
     [SerializeField] private Slider sfxSlide;
     [SerializeField] private Slider healthBar;
-
-    [Header("Image")]
-    [SerializeField] private Image loadingFill;
+    [SerializeField] private Slider progressBar;
     protected override void Awake()
     {
         base.Awake();
@@ -37,26 +38,23 @@ public class UIManager : Singleton<UIManager>
 
     private void Start()
     {
-        GameManager.Instance.OnRootChange += UpdateRoot;
         GameManager.Instance.OnRootUpdate += UpdateGuage;
         GameManager.Instance.OnPause += ActivatePause;
         resumeButton.onClick.AddListener(delegate { GameManager.Instance.Pause(false); });
         returnToMenuButton.onClick.AddListener(delegate { SceneLoader.Instance.LoadMenu(); });
-        musicSlide.onValueChanged.AddListener(value => SoundManager.Instance.BGM_ChangeVolume(value));
-        DataPersistenceManager.Instance.OnConfig += data => SetVolume(data.musicVolume);
+        musicSlide.onValueChanged.AddListener(SoundManager.Instance.BGM_ChangeVolume);
+        SoundManager.Instance.OnBgmVolume += SetVolumeBGM;
+        sfxSlide.onValueChanged.AddListener(SoundManager.Instance.SFX_ChangeVolume);
+        SoundManager.Instance.OnSfxVolume += SetVolumeSFX;
+        DataPersistenceManager.Instance.OnConfig += data => SetVolumeBGM(data.musicVolume);
+        DataPersistenceManager.Instance.OnConfig += data => SetVolumeSFX(data.sfxVolume);
         DataPersistenceManager.Instance.RequestData();
-
-        SceneLoader.Instance.OnLoadProgress += delegate (float value) { loadingFill.fillAmount = value; };
+        SceneLoader.Instance.OnLoadProgress += UpdateLoadingProgress;
     }
 
     private void SetupRoot()
     {
         rootIcon.sprite = rootData.itemIcon;
-    }
-
-    private void UpdateRoot(int amount)
-    {
-        rootText.text = amount.ToString();
     }
 
     private void UpdateGuage(float percentage)
@@ -69,14 +67,29 @@ public class UIManager : Singleton<UIManager>
         pausePanel.SetActive(pause);
     }
 
-    public void SetVolume(float volume)
+    public void SetVolumeBGM(float volume)
     {
         musicSlide.value = volume;
+    }
+
+    public void SetVolumeSFX(float volume)
+    {
+        sfxSlide.value = volume;
     }
 
     public void UpdateHealth(float percentage)
     {
         healthBar.value = percentage;
+    }
+
+    public void ActivateMenu(bool value)
+    {
+        menuPanel.SetActive(value);
+    }
+
+    private void UpdateLoadingProgress(float progress)
+    {
+        progressBar.value = progress;
     }
 
     public void LoadScene(string name)

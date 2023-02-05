@@ -10,7 +10,6 @@ public class HealthbarManager : Singleton<HealthbarManager>
     public List<Transform> tracking = new List<Transform>();
     public RectTransform container;
     public Slider prefab;
-    private Camera cam;
     private Queue<DeleteInfo> deleteBar;
     private struct DeleteInfo
     {
@@ -25,7 +24,6 @@ public class HealthbarManager : Singleton<HealthbarManager>
     }
     private void Start()
     {
-        cam = Camera.main;
         deleteBar = new Queue<DeleteInfo>();
     }
 
@@ -33,12 +31,12 @@ public class HealthbarManager : Singleton<HealthbarManager>
     {
         for (int i = 0; i < tracking.Count; i++)
         {
-            Vector3 screenPoint = cam.WorldToViewportPoint(tracking[i].position);
+            Vector3 screenPoint = Camera.main.WorldToViewportPoint(tracking[i].position);
             bool onScreen = screenPoint.z > 0 && screenPoint.x > 0 && screenPoint.x < 1 && screenPoint.y > 0 && screenPoint.y < 1;
             rt[i].gameObject.SetActive(onScreen);
             if (onScreen)
             {
-                rt[i].anchoredPosition = cam.ViewportToScreenPoint(screenPoint);
+                rt[i].anchoredPosition = Camera.main.ViewportToScreenPoint(screenPoint);
             }
         }
         if(deleteBar.Count > 0)
@@ -53,7 +51,6 @@ public class HealthbarManager : Singleton<HealthbarManager>
         }
     }
 
-    /*
     public void AddHealth(Transform target,CharacterCombat combat)
     {
         Slider slider = Instantiate(prefab,container);
@@ -61,7 +58,14 @@ public class HealthbarManager : Singleton<HealthbarManager>
         tracking.Add(target);
         rt.Add(slider.GetComponent<RectTransform>());
     }
-    */
+
+    public void AddHealth(Transform target, Action<float> onHealthUpdate)
+    {
+        Slider slider = Instantiate(prefab, container);
+        onHealthUpdate += delegate (float value) { slider.value = value; };
+        tracking.Add(target);
+        rt.Add(slider.GetComponent<RectTransform>());
+    }
 
     public void Add(Transform target,RectTransform rect)
     {
@@ -70,7 +74,22 @@ public class HealthbarManager : Singleton<HealthbarManager>
     }
     public void Remove(Transform tf)
     {
-        int index = tracking.IndexOf(tf);
+        int index = 0;
+        for (int i = 0; i < tracking.Count; i++)
+        {
+            if(tf == tracking[i])
+            {
+                index = i;
+                break;
+            }
+        }
         deleteBar.Enqueue(new DeleteInfo(rt[index], tf));
+    }
+
+    public void ClearAll()
+    {
+        tracking.Clear();
+        rt.Clear();
+        deleteBar.Clear();
     }
 }

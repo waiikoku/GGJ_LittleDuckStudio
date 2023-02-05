@@ -5,6 +5,8 @@ TagManager:
   serializedVersion: 2
   tags:
   - Wall
+  - Buddy
+  - Enemy
   layers:
   - Default
   - TransparentFX
@@ -12,11 +14,11 @@ TagManager:
   - Obstacle
   - Water
   - UI
-  - Player
-  - Enemy
-  - 
-  - 
-  - 
+  - Post-Processing
+  - Ground
+  - Environment
+  - Character
+  - Hitbox
   - 
   - 
   - 
@@ -41,4 +43,10 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Environment
+    uniqueID: 1776771253
+    locked: 0
+  - name: Character
+    uniqueID: 3009169419
     locked: 0
