@@ -273,7 +273,6 @@ public class NewBossController : MonoBehaviour
         {
             bAnima.Play("Idel");
             GameObject r = Instantiate(rock, player.position + Vector3.up * dropRockHight, Quaternion.identity);
-            r.GetComponent<DirtFall>().hight = dropRockHight;
             StartCoroutine(ResetCondition(2));
         }
     }

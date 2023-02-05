@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Net.Sockets;
+using System.Runtime.CompilerServices;
 using UnityEngine;
 
 public class DirtFall : MonoBehaviour
@@ -15,15 +16,17 @@ public class DirtFall : MonoBehaviour
     void Start()
     {
         spawnPosition = transform;
+        Debug.Log(spawnPosition.position);
         anim.Play("DirtIdel");
+        danger.GetComponent<Danger>().pos = spawnPosition.position - new Vector3(0, 42.5f, 0);
     }
 
     // Update is called once per frame
     void Update()
     {
-        danger.transform.position = spawnPosition.position - new Vector3(0, -2.5f, 0) + Vector3.down * hight;
-        transform.position += Vector3.down* Time.deltaTime;
-        if (transform.position == spawnPosition.position + Vector3.down * hight)
+        Vector3 pos = spawnPosition.position - new Vector3(0, 40f, 0);
+        Debug.Log(pos);
+        if (transform.position == pos)
         {
             if ( doDamage)
             {
@@ -36,5 +39,6 @@ public class DirtFall : MonoBehaviour
                 Destroy(gameObject);
             }
         }
+        else { transform.position += Vector3.down * Time.deltaTime * 10; }
     }
 }
