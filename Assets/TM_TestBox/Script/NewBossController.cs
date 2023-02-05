@@ -43,10 +43,10 @@ public class NewBossController : MonoBehaviour
     public float animationEndTime = 0f;
 
     [Header ("Condition")]
-    public bool moveCon0 = false;
     public bool moveCon1 = false;
     public bool moveCon2 = false;
     public bool moveCon3 = false;
+    public bool faceRight = false;
 
     private void Awake()
     {
@@ -110,6 +110,7 @@ public class NewBossController : MonoBehaviour
     {
         Debug.Log("MoveToPrepareCharege");
         transform.position = Vector2.MoveTowards(transform.position, chargeLocation.position, Time.deltaTime * speed);
+        FlipCheck(chargeLocation);
         if (transform.position == chargeLocation.position)
         {
             if(moveCon3)
@@ -124,6 +125,8 @@ public class NewBossController : MonoBehaviour
     }
     IEnumerator Chargeing()
     {
+        bAnima.Play("Chargeing");
+        FlipCheck(player);
         yield return new WaitForSeconds(2);
         moveToPlayer = true;
     }
@@ -136,11 +139,22 @@ public class NewBossController : MonoBehaviour
         }
         if (!isHit)
         {
-            Debug.Log("Charge");
+            if (!startAnimation)
+            {
+                bAnima.Play("PreCrush");
+                animationEndTime = 0;
+            }
+            animationEndTime += Time.deltaTime;
+            if (animationEndTime >= 0.1f)
+            {
+                bAnima.Play("Crush");
+            }
+                Debug.Log("Charge");
             rigidBody.velocity = direction * chargeSpeed;
         }
         if (stunCondition)
         {
+            bAnima.Play("Stun");
             elapsedTime += Time.deltaTime;
             if (elapsedTime >= 5f)
             {
@@ -167,9 +181,9 @@ public class NewBossController : MonoBehaviour
         if(con == 1)
         {
             moveCon1 = false;
-            startAnimation = true;
-            bAnima.Play("Idel");
         }
+        startAnimation = false;
+        bAnima.Play("Idel");
         yield   return new WaitForSeconds(0.3f); 
     }
     private void OnCollisionEnter2D(Collision2D collision)
@@ -181,12 +195,14 @@ public class NewBossController : MonoBehaviour
                 Debug.Log("Hit Player");
                 // dodamage
                 isHit = true;
+                StartCoroutine(ResetCondition(3));
             }
             else if (collision.gameObject.tag == "Wall")
             {
                 Debug.Log("Hit Wall");
                 isHit = true;
                 stunCondition = true;
+                startAnimation = false;
             }
 
         }
@@ -194,6 +210,7 @@ public class NewBossController : MonoBehaviour
     void Move(float mSpeed)
     {
         transform.position = Vector2.MoveTowards(transform.position, player.position, Time.deltaTime * mSpeed);
+        FlipCheck(player.transform);
     }
     void NormalAttack()
     {
@@ -258,6 +275,19 @@ public class NewBossController : MonoBehaviour
     public void GetDamageFront(int damage)
     {
         bossHP -= damage - bossDef;
+    }
+    void FlipCheck(Transform target)
+    {
+        float dis = transform.position.x - target.position.x;
+        if (dis < 0 && !faceRight)
+        { Flip(); faceRight = !faceRight; }
+        if (dis > 0 && faceRight)
+        { Flip(); faceRight = !faceRight; }
+
+    }
+    private void Flip()
+    {
+        transform.localScale = new Vector3(transform.localScale.x *-1, transform.localScale.y, transform.localScale.z);
     }
     private void OnDrawGizmos()
     {
