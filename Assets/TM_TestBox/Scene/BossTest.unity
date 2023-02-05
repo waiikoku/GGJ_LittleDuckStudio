@@ -618,6 +618,22 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2534510754153315896, guid: 4d8d753df85e0bd4c85302ea0e1eed74, type: 3}
+      propertyPath: m_Size.x
+      value: 2.461687
+      objectReference: {fileID: 0}
+    - target: {fileID: 2534510754153315896, guid: 4d8d753df85e0bd4c85302ea0e1eed74, type: 3}
+      propertyPath: m_Offset.x
+      value: 10.138871
+      objectReference: {fileID: 0}
+    - target: {fileID: 2534510755240695048, guid: 4d8d753df85e0bd4c85302ea0e1eed74, type: 3}
+      propertyPath: m_Size.x
+      value: 5.022211
+      objectReference: {fileID: 0}
+    - target: {fileID: 2534510755240695048, guid: 4d8d753df85e0bd4c85302ea0e1eed74, type: 3}
+      propertyPath: m_Offset.x
+      value: 1.4693512
+      objectReference: {fileID: 0}
     - target: {fileID: 2534510755240695050, guid: 4d8d753df85e0bd4c85302ea0e1eed74, type: 3}
       propertyPath: m_RootOrder
       value: 4
@@ -663,9 +679,29 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2534510755240695051, guid: 4d8d753df85e0bd4c85302ea0e1eed74, type: 3}
+      propertyPath: rock
+      value: 
+      objectReference: {fileID: 3378951935428768094, guid: f75cb2f1d8bf8984da6ca4d81f5265f6, type: 3}
+    - target: {fileID: 2534510755240695051, guid: 4d8d753df85e0bd4c85302ea0e1eed74, type: 3}
       propertyPath: player
       value: 
       objectReference: {fileID: 657132251}
+    - target: {fileID: 2534510755240695051, guid: 4d8d753df85e0bd4c85302ea0e1eed74, type: 3}
+      propertyPath: bossAtk
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2534510755240695051, guid: 4d8d753df85e0bd4c85302ea0e1eed74, type: 3}
+      propertyPath: moveCon2
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2534510755240695051, guid: 4d8d753df85e0bd4c85302ea0e1eed74, type: 3}
+      propertyPath: bossMaxHp
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 2534510755240695051, guid: 4d8d753df85e0bd4c85302ea0e1eed74, type: 3}
+      propertyPath: dropRockHight
+      value: 40
+      objectReference: {fileID: 0}
     - target: {fileID: 2534510755240695051, guid: 4d8d753df85e0bd4c85302ea0e1eed74, type: 3}
       propertyPath: chargeLocation
       value: 

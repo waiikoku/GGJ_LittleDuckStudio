@@ -33,6 +33,11 @@ public class NewBossController : MonoBehaviour
     private Vector2 direction;
     public float chargeSpeed = 5f;
     private BoxCollider2D enemyCollider;
+    private bool throwRock = false;
+
+    [Header ("DropRock")]
+    public GameObject rock;
+    public float dropRockHight = 5f;
 
     [Header("Timer")]
     public float chargeAttackNextTime;
@@ -84,7 +89,12 @@ public class NewBossController : MonoBehaviour
             }
             if (moveCon2)
             {
-                ThrowRock();
+                if (!throwRock)
+                {
+                    MoveToChargeLocation();
+                }
+                else
+                { ThrowRock(); }
             }
         }
     }
@@ -125,7 +135,8 @@ public class NewBossController : MonoBehaviour
             }
             else if (moveCon2)
             {
-
+                FlipCheck(player);
+                throwRock = true;
             }
         }
     }
@@ -188,6 +199,11 @@ public class NewBossController : MonoBehaviour
         {
             moveCon1 = false;
         }
+        if (con == 2)
+        {
+            moveCon2 = false;
+            startAnimation = false;
+        }
         startAnimation = false;
         bAnima.Play("Idel");
         yield   return new WaitForSeconds(0.3f); 
@@ -246,7 +262,20 @@ public class NewBossController : MonoBehaviour
     }
     void ThrowRock()
     {
-
+        if (!startAnimation)
+        {
+            bAnima.Play("Throw");
+            animationEndTime = 0;
+            startAnimation = true;
+        }
+        animationEndTime += Time.deltaTime;
+        if (animationEndTime >= 0.30f)
+        {
+            bAnima.Play("Idel");
+            GameObject r = Instantiate(rock, player.position + Vector3.up * dropRockHight, Quaternion.identity);
+            r.GetComponent<DirtFall>().hight = dropRockHight;
+            StartCoroutine(ResetCondition(2));
+        }
     }
     bool MoveConditionCheck(int moveNum)
     {
