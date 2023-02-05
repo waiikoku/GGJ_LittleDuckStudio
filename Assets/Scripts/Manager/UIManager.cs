@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using Button = UnityEngine.UI.Button;
+using System;
 
 public class UIManager : Singleton<UIManager>
 {
@@ -92,9 +93,24 @@ public class UIManager : Singleton<UIManager>
         progressBar.value = progress;
     }
 
+    public void SetGameover(bool value)
+    {
+        gameoverPanel.SetActive(value);
+    }
+
+    public void SetGUI(bool value)
+    {
+        gameplayPanel.SetActive(value);
+    }
+
     public void LoadScene(string name)
     {
         loadingScreen.SetActive(true);
         StartCoroutine(SceneLoader.Instance.LoadSceneAsync(name, delegate { loadingScreen.SetActive(false); }));
+    }
+
+    internal void SetVictory(bool v)
+    {
+        victoryPanel.SetActive(v);
     }
 }

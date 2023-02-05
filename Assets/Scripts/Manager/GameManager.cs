@@ -54,4 +54,15 @@ public class GameManager : Singleton<GameManager>
         rootAmount -= v;
     }
     #endregion
+
+    public void Gameover()
+    {
+        UIManager.Instance.SetGUI(false);
+        UIManager.Instance.SetGameover(true);
+    }
+
+    public void Victory()
+    {
+        UIManager.Instance.SetVictory(true);
+    }
 }

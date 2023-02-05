@@ -1,0 +1,115 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!181963792 &2655988077585873504
+Preset:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: God-PC
+  m_TargetType:
+    m_NativeTypeID: 114
+    m_ManagedTypePPtr: {fileID: 11500000, guid: 8b08e77fe731bd84ebb7fa26b4fb0f07, type: 3}
+    m_ManagedTypeFallback: 
+  m_Properties:
+  - target: {fileID: 0}
+    propertyPath: m_Enabled
+    value: 1
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: m_EditorHideFlags
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: m_EditorClassIdentifier
+    value: 
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: wandHolder
+    value: 
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: projectile
+    value: 
+    objectReference: {fileID: 5974525540877750231, guid: 592535629d0818d4cb86514992a7735c, type: 3}
+  - target: {fileID: 0}
+    propertyPath: speed
+    value: 10
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: dmg
+    value: 100
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: currentHealth
+    value: 10000
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: maxHealth
+    value: 10000
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: hitCount
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: anim
+    value: 
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: projectileSFX
+    value: Player Attack
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: wiggleSFX
+    value: 
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: targetLayer.m_Bits
+    value: 640
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: targetTag
+    value: Buddy
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: fairySupport
+    value: 
+    objectReference: {fileID: 2537579086270649983, guid: f47162d5e6e4b894e88c209e75105da8, type: 3}
+  - target: {fileID: 0}
+    propertyPath: fairyConditionHp
+    value: 0.8
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: fairyCooldown
+    value: 60
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: fairyUsed
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: wiggleRadius
+    value: 5
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: smileySupport
+    value: 
+    objectReference: {fileID: 1245292016953976332, guid: 8005d8e8ef6a4ff4cba2633b18daef3f, type: 3}
+  - target: {fileID: 0}
+    propertyPath: smileyCondition
+    value: 5
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: smileyDuration
+    value: 30
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: smileyActive
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: spawnDistance
+    value: 5
+    objectReference: {fileID: 0}
+  m_ExcludedProperties: []

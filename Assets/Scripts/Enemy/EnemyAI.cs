@@ -63,6 +63,7 @@ public class EnemyAI : MonoBehaviour
             rb.velocity = Vector2.zero;
             return;
         }
+        if (player == null) return;
         direction = player.position - transform.position;
         distance = direction.magnitude;
         FlipHandler();

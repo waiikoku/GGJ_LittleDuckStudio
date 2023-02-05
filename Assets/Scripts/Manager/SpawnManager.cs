@@ -21,6 +21,10 @@ public class SpawnManager : Singleton<SpawnManager>
     public Vector2 viewpointRight;
     public float minDelay;
     public float maxDelay;
+
+    public GameObject iviWall;
+
+    [SerializeField] private GameObject boss;
     public void TriggerZone()
     {
         Spawn();
@@ -28,6 +32,12 @@ public class SpawnManager : Singleton<SpawnManager>
 
     private void Spawn()
     {
+        if (level == lockNWave.Length - 1)
+        {
+            boss.SetActive(true);
+            iviWall.SetActive(true);
+            return;
+        }
         if (spawnPoints.Length < level) return;
         /*
         focusVC.Follow = focusPoints[level];
@@ -59,7 +69,7 @@ public class SpawnManager : Singleton<SpawnManager>
 
     private GameObject goSpawn(Vector2 position)
     {
-        GameObject go = Instantiate(prefabs[Random.Range(0, prefabs.Length)], position + Random.insideUnitCircle * Random.Range(0f, 0.5f), Quaternion.identity);
+        GameObject go = Instantiate(prefabs[Random.Range(0, prefabs.Length)], position, Quaternion.identity);
         return go;
     }
 

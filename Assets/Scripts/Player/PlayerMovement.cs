@@ -23,6 +23,11 @@ public class PlayerMovement : MonoBehaviour
         InputManager.Instance.OnAxis += UpdateInput;
         limitInfo = ZoneManager.Instance.GetInfo();
     }
+
+    private void OnDestroy()
+    {
+        InputManager.Instance.OnAxis -= UpdateInput;
+    }
     private void FixedUpdate()
     {
         MoveHandler();

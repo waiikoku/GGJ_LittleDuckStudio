@@ -53,6 +53,10 @@ public class PlayerCombat : CharacterCombat
     private void OnDestroy()
     {
         InputManager.Instance.OnLMB -= PrimaryAttack;
+        OnHealthUpdate -= UIManager.Instance.UpdateHealth;
+        anim.aer.OnAttack -= ShootProjectile;
+        InputManager.Instance.OnSprinkle -= WiggleSkill;
+        GameManager.Instance.OnRootChange -= delegate (int amount) { SpawnSmiley(amount); };
     }
 
     public override void Damage(float dmg)
@@ -61,6 +65,11 @@ public class PlayerCombat : CharacterCombat
         currentHealth = Mathf.Clamp(currentHealth - dmg, 0, maxHealth);
         OnHealthUpdate?.Invoke(currentHealth / maxHealth);
         ConditionSkill();
+        if(currentHealth == 0)
+        {
+            GameManager.Instance.Gameover();
+            Destroy(gameObject);
+        }
     }
 
     public void Heal(float hp)
