@@ -1,11 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 using static UnityEditor.FilePathAttribute;
 
 public class NewBossController : MonoBehaviour
 {
     public Transform player;
+    private Animator bAnima;
     private Rigidbody2D rigidBody;
     public float speed = 5f;
 
@@ -17,6 +19,7 @@ public class NewBossController : MonoBehaviour
 
     [Header("Atk")]
     public Transform attackPoint;
+    public float stopWalk;
     public Vector2 attackRangeNormal;
     public LayerMask playerLayer;
 
@@ -36,6 +39,8 @@ public class NewBossController : MonoBehaviour
     public float chargeAttackDelay;
     public float stunTime = 8f;
     public float elapsedTime = 0f;
+    public bool startAnimation = false;
+    public float animationEndTime = 0f;
 
     [Header ("Condition")]
     public bool moveCon0 = false;
@@ -46,6 +51,7 @@ public class NewBossController : MonoBehaviour
     private void Awake()
     {
         bossHP = bossMaxHp;
+        bAnima = GetComponent<Animator>();
     }
     void Start()
     {
@@ -54,43 +60,72 @@ public class NewBossController : MonoBehaviour
     }
     private void Update()
     {
-        if (Distance() < chargeRange)
+        SelectAttack();
+        if(moveCon3)
+        {
+            if (!moveToPlayer)
+            {
+                MoveToChargeLocation();
+            }
+            else
+            {
+                MoveToPlayer();
+            }
+        }
+        if (moveCon1)
+        {
+            NormalAttack();
+        }
+        if (moveCon2)
+        {
+            ThrowRock();
+        }
+
+    }
+    void SelectAttack()
+    {
+        if (Time.time >= chargeAttackNextTime /* && Distance() > chargeRange*/)
+        {
+            if (MoveConditionCheck(3))
+            {
+                moveCon3 = true;
+            }
+        }
+        else if (Distance() < chargeRange)
         {
             if (MoveConditionCheck(1))
             {
-                NormalAttack();
+                moveCon1 = true;    
             }
         }
         else if (Time.time <= chargeAttackNextTime && Distance() > chargeRange)
         {
             if (MoveConditionCheck(2))
             {
-                ThrowRock();
-            }
-        }
-        else if (Time.time >= chargeAttackNextTime && Distance() > chargeRange)
-        {
-            if(MoveConditionCheck(3))
-            {
-                if (!moveToPlayer)
-                {
-                    MoveToChargeLocation();
-                }
-                else
-                {
-                    MoveToPlayer();
-                }
+                moveCon2 = true;
             }
         }
     }
-    
     void MoveToChargeLocation()
     {
-        transform.position = Vector2.MoveTowards(transform.position, chargeLocation.position, Time.deltaTime);
+        Debug.Log("MoveToPrepareCharege");
+        transform.position = Vector2.MoveTowards(transform.position, chargeLocation.position, Time.deltaTime * speed);
         if (transform.position == chargeLocation.position)
         {
-            moveToPlayer = true;
+            if(moveCon3)
+            {
+                StartCoroutine(Chargeing());
+            }
+            else if (moveCon2)
+            {
+
+            }
         }
+    }
+    IEnumerator Chargeing()
+    {
+        yield return new WaitForSeconds(2);
+        moveToPlayer = true;
     }
     void MoveToPlayer()
     {
@@ -101,6 +136,7 @@ public class NewBossController : MonoBehaviour
         }
         if (!isHit)
         {
+            Debug.Log("Charge");
             rigidBody.velocity = direction * chargeSpeed;
         }
         if (stunCondition)
@@ -112,12 +148,29 @@ public class NewBossController : MonoBehaviour
             }
             if (elapsedTime >= stunTime)
             {
-                elapsedTime= 0;
-                stunCondition = false;
-                moveCon3 = false;
-                moveToPlayer = false;
+                StartCoroutine(ResetCondition(3));
             }
         }
+    }
+    IEnumerator ResetCondition(int con)
+    {
+        if (con == 3)
+        {
+            chargeAttackNextTime = Time.time + chargeAttackDelay;
+            moveCon3 = false;
+            isHit = false;
+            getChargeDirection = false;
+            stunCondition = false;
+            moveToPlayer = false;
+            elapsedTime = 0;
+        }
+        if(con == 1)
+        {
+            moveCon1 = false;
+            startAnimation = true;
+            bAnima.Play("Idel");
+        }
+        yield   return new WaitForSeconds(0.3f); 
     }
     private void OnCollisionEnter2D(Collision2D collision)
     {
@@ -125,11 +178,13 @@ public class NewBossController : MonoBehaviour
         {
             if (collision.gameObject.tag == "Player")
             {
+                Debug.Log("Hit Player");
                 // dodamage
                 isHit = true;
             }
             else if (collision.gameObject.tag == "Wall")
             {
+                Debug.Log("Hit Wall");
                 isHit = true;
                 stunCondition = true;
             }
@@ -142,12 +197,29 @@ public class NewBossController : MonoBehaviour
     }
     void NormalAttack()
     {
-        Collider2D[] hit = Physics2D.OverlapBoxAll(attackPoint.position, attackRangeNormal, playerLayer);
-
-        foreach (Collider2D enemy in hit)
+        Debug.Log("NormalAttack");
+        if (Distance() <= stopWalk + 5)
         {
-            //damageCode
+            if (!startAnimation)
+            {
+                bAnima.Play("NormalAttack");
+                animationEndTime = 0;
+            }
+            animationEndTime += Time.deltaTime;
+            if(animationEndTime >= 0.51f)
+            {
+                Debug.Log("Attack");
+                Collider2D[] hit = Physics2D.OverlapBoxAll(attackPoint.position, attackRangeNormal, playerLayer);
+
+                foreach (Collider2D enemy in hit)
+                {
+                    //damageCode
+                }
+                StartCoroutine(ResetCondition(1));
+            }
         }
+        if (Distance() >= stopWalk) { Move(speed); }
+
     }
     void ThrowRock()
     {
@@ -155,27 +227,24 @@ public class NewBossController : MonoBehaviour
     }
     bool MoveConditionCheck(int moveNum)
     {
-        if (!moveCon0 && !moveCon1 && !moveCon2 && !moveCon3)
+        bool returner;
+        switch (moveNum)
         {
-            return true;
+            case 1: if (!moveCon2 && !moveCon3)
+                    { returner = true; } 
+                    else { returner = false; }
+                break;
+            case 2: if (!moveCon1 && !moveCon3)
+                    { returner = true; } 
+                    else { returner = false; }
+                break;
+            case 3: if (!moveCon1 && !moveCon2)
+                    { returner = true; }
+                    else { returner = false; }
+                break;
+                default: returner = false; break;
         }
-        else if (moveCon0 && moveNum == 0)
-        {
-            return true;
-        }
-        else if(moveCon1 && moveNum == 1)
-        {
-            return true;
-        }
-        else if (moveCon2 && moveNum == 2)
-        {
-            return true;
-        }
-        else if (moveCon3 && moveNum == 3)
-        {
-            return true;
-        }
-        return false;
+        return returner;
     }
     float Distance()
     {
@@ -192,11 +261,11 @@ public class NewBossController : MonoBehaviour
     }
     private void OnDrawGizmos()
     {
-        Collider2D[] hit = Physics2D.OverlapBoxAll(attackPoint.position, attackRangeNormal, playerLayer);
+        
         Gizmos.color = Color.red;
-        foreach (Collider2D collider in hit)
-        {
-            Gizmos.DrawCube(collider.bounds.center, collider.bounds.size);
-        }
+        Gizmos.DrawWireCube(attackPoint.position, attackRangeNormal);
+
+        Gizmos.color = Color.green;
+        Gizmos.DrawWireSphere(transform.position, chargeRange);
     }
 }
