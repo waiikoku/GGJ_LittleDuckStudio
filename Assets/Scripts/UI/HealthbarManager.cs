@@ -6,11 +6,11 @@ using UnityEngine.UI;
 
 public class HealthbarManager : Singleton<HealthbarManager>
 {
-    /*
     public List<RectTransform> rt = new List<RectTransform>();
     public List<Transform> tracking = new List<Transform>();
     public RectTransform container;
     public Slider prefab;
+    private int failedTry = 0;
     private Queue<DeleteInfo> deleteBar;
     private struct DeleteInfo
     {
@@ -30,15 +30,29 @@ public class HealthbarManager : Singleton<HealthbarManager>
 
     private void FixedUpdate()
     {
-        for (int i = 0; i < tracking.Count; i++)
+        try
         {
-            Vector3 screenPoint = Camera.main.WorldToViewportPoint(tracking[i].position);
-            bool onScreen = screenPoint.z > 0 && screenPoint.x > 0 && screenPoint.x < 1 && screenPoint.y > 0 && screenPoint.y < 1;
-            rt[i].gameObject.SetActive(onScreen);
-            if (onScreen)
+            for (int i = 0; i < tracking.Count; i++)
             {
-                rt[i].anchoredPosition = Camera.main.ViewportToScreenPoint(screenPoint);
+                Vector3 screenPoint = Camera.main.WorldToViewportPoint(tracking[i].position);
+                bool onScreen = screenPoint.z > 0 && screenPoint.x > 0 && screenPoint.x < 1 && screenPoint.y > 0 && screenPoint.y < 1;
+                rt[i].gameObject.SetActive(onScreen);
+                if (onScreen)
+                {
+                    rt[i].anchoredPosition = Camera.main.ViewportToScreenPoint(screenPoint);
+                }
             }
+        }
+        catch (Exception e)
+        {
+            failedTry++;
+            if (failedTry > tracking.Count)
+            {
+                rt.Clear();
+                tracking.Clear();
+                failedTry = 0;
+            }
+            throw;
         }
         if(deleteBar.Count > 0)
         {
@@ -60,19 +74,6 @@ public class HealthbarManager : Singleton<HealthbarManager>
         rt.Add(slider.GetComponent<RectTransform>());
     }
 
-    public void AddHealth(Transform target, Action<float> onHealthUpdate)
-    {
-        Slider slider = Instantiate(prefab, container);
-        onHealthUpdate += delegate (float value) { slider.value = value; };
-        tracking.Add(target);
-        rt.Add(slider.GetComponent<RectTransform>());
-    }
-
-    public void Add(Transform target,RectTransform rect)
-    {
-        tracking.Add(target);
-        rt.Add(rect);
-    }
     public void Remove(Transform tf)
     {
         int index = 0;
@@ -93,5 +94,4 @@ public class HealthbarManager : Singleton<HealthbarManager>
         rt.Clear();
         deleteBar.Clear();
     }
-    */
 }

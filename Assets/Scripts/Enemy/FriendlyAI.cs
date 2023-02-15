@@ -148,9 +148,12 @@ public class FriendlyAI : Character
                 break;
         }
         if (enemies.Count == 0) return;
-        if (enemies[0].currentHealth == 0)
+        if (enemies[0] != null)
         {
-            enemies.RemoveAt(0);
+            if (enemies[0].currentHealth == 0)
+            {
+                enemies.RemoveAt(0);
+            }
         }
     }
 

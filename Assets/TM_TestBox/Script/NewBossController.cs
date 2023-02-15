@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class NewBossController : MonoBehaviour , IDamagable
+public class NewBossController : CharacterCombat
 {
     public Transform player;
     private Animator bAnima;
@@ -55,6 +55,7 @@ public class NewBossController : MonoBehaviour , IDamagable
     public bool faceRight = false;
 
     private ZoneManager.LimitInfo limitInfo;
+    [SerializeField] private Transform head;
 
     private void Awake()
     {
@@ -67,6 +68,12 @@ public class NewBossController : MonoBehaviour , IDamagable
         rigidBody = GetComponent<Rigidbody2D>();
         player = GameObject.FindGameObjectWithTag("Player").transform;
         limitInfo = ZoneManager.Instance.GetInfo();
+        HealthbarManager.Instance.AddHealth(head, this);
+    }
+
+    private void OnDestroy()
+    {
+        HealthbarManager.Instance.Remove(head);
     }
     private void Update()
     {
@@ -358,15 +365,16 @@ public class NewBossController : MonoBehaviour , IDamagable
         Gizmos.DrawWireSphere(transform.position, chargeRange);
     }
 
-    public void Damage(float dmg)
+    public override void Damage(float dmg)
     {
         bossHP -= (int)dmg;
-        if(bossHP <= 0)
+        if (bossHP <= 0)
         {
             //GameManager.Instance.Victory();
             UIManager.Instance.SetGUI(false);
             SceneLoader.Instance.LoadScene("Cutscene");
             SoundManager.Instance.StopBGM();
         }
+        OnHealthUpdate?.Invoke((float)bossHP / (float)bossMaxHp);
     }
 }

@@ -19,7 +19,12 @@ public class EnemyCombat : CharacterCombat , IKnockbackable
     [SerializeField] private string diedSFX;
     private void Start()
     {
-        //HealthbarManager.Instance?.AddHealth(head, this);
+        HealthbarManager.Instance.AddHealth(head, this);
+    }
+
+    private void OnDestroy()
+    {
+        HealthbarManager.Instance.Remove(head);
     }
 
     public override void Damage(float dmg)
@@ -33,7 +38,7 @@ public class EnemyCombat : CharacterCombat , IKnockbackable
             SpawnManager.Instance.ConfirmKill();
             DropItem();
             gameObject.SetActive(false);
-            //HealthbarManager.Instance.Remove(head);
+            HealthbarManager.Instance.Remove(head);
             CharacterLayerManager.Instance.Remove(sr, delegate { Destroy(gameObject,8f); });
         }
     }
