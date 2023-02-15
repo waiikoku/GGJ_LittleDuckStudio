@@ -92,6 +92,12 @@ public class SoundManager : Singleton<SoundManager>
         }
     }
 
+    public void StopBGM()
+    {
+        if (bgmPlayer.isPlaying == false) return;
+        bgmPlayer.Stop();
+    }
+
     public void PlaySFX(Sound effect)
     {
         sfxPlayer.PlayOneShot(effect.clip, sfxVolume * effect.modifyVolume);

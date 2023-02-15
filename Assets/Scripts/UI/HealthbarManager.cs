@@ -6,6 +6,7 @@ using UnityEngine.UI;
 
 public class HealthbarManager : Singleton<HealthbarManager>
 {
+    /*
     public List<RectTransform> rt = new List<RectTransform>();
     public List<Transform> tracking = new List<Transform>();
     public RectTransform container;
@@ -92,4 +93,5 @@ public class HealthbarManager : Singleton<HealthbarManager>
         rt.Clear();
         deleteBar.Clear();
     }
+    */
 }

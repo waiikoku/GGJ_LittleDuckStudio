@@ -25,6 +25,7 @@ public class UIManager : Singleton<UIManager>
     [Header("Button")]
     [SerializeField] private Button resumeButton;
     [SerializeField] private Button returnToMenuButton;
+    [SerializeField] private Button quitButton;
 
     [Header("Slider")]
     [SerializeField] private Slider musicSlide;
@@ -51,6 +52,7 @@ public class UIManager : Singleton<UIManager>
         DataPersistenceManager.Instance.OnConfig += data => SetVolumeSFX(data.sfxVolume);
         DataPersistenceManager.Instance.RequestData();
         SceneLoader.Instance.OnLoadProgress += UpdateLoadingProgress;
+        quitButton.onClick.AddListener(QuitGame);
     }
 
     private void SetupRoot()
@@ -112,5 +114,10 @@ public class UIManager : Singleton<UIManager>
     internal void SetVictory(bool v)
     {
         victoryPanel.SetActive(v);
+    }
+
+    private void QuitGame()
+    {
+        Application.Quit();
     }
 }

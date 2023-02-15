@@ -366,6 +366,7 @@ public class NewBossController : MonoBehaviour , IDamagable
             //GameManager.Instance.Victory();
             UIManager.Instance.SetGUI(false);
             SceneLoader.Instance.LoadScene("Cutscene");
+            SoundManager.Instance.StopBGM();
         }
     }
 }

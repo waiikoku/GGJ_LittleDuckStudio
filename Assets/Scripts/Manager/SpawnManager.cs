@@ -36,6 +36,7 @@ public class SpawnManager : Singleton<SpawnManager>
         {
             boss.SetActive(true);
             iviWall.SetActive(true);
+            SoundManager.Instance.PlayBGM("Burning Soul");
             return;
         }
         if (spawnPoints.Length < level) return;
@@ -64,7 +65,7 @@ public class SpawnManager : Singleton<SpawnManager>
             yield return new WaitForSeconds(Random.Range(minDelay,maxDelay));
         }
         level++;
-        lockNWave[level].GetComponent<BoxCollider2D>().isTrigger = false;
+        //lockNWave[level].GetComponent<BoxCollider2D>().isTrigger = false;
     }
 
     private GameObject goSpawn(Vector2 position)
@@ -81,7 +82,7 @@ public class SpawnManager : Singleton<SpawnManager>
             focusVC.gameObject.SetActive(false);
             playerVC.gameObject.SetActive(true);
             if (level > lockNWave.Length - 1) return;
-            lockNWave[level].GetComponent<BoxCollider2D>().isTrigger = true;
+            //lockNWave[level].GetComponent<BoxCollider2D>().isTrigger = true;
         }
     }
 }

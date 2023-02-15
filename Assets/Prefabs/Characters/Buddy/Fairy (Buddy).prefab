@@ -4953,5 +4953,5 @@ MonoBehaviour:
   targetTag: Enemy
   rootPrefab: {fileID: 2347768732623839744, guid: 96771baba9646684480f324338a74c68, type: 3}
   liveDuration: 15
-  lockDuration: 5
+  lockDuration: 2
   assistPhase: 0

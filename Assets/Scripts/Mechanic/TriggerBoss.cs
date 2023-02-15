@@ -4,15 +4,25 @@ using UnityEngine;
 
 public class TriggerBoss : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    public BoxCollider2D col;
 
-    // Update is called once per frame
-    void Update()
+    private void OnCollisionStay2D(Collision2D collision)
     {
-        
+        if (collision.collider.CompareTag("Enemy"))
+        {
+            if(collision.collider.GetComponent<NewBossController>())
+            {
+
+            }
+            else
+            {
+                Physics2D.IgnoreCollision(collision.collider, col);
+            }
+        }
+        else
+        {
+            Physics2D.IgnoreCollision(collision.collider, col);
+        }
+
     }
 }

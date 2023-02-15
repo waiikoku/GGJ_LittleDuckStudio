@@ -8266,7 +8266,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 597.125, y: -132.875}
+  m_AnchoredPosition: {x: 651, y: 45}
   m_SizeDelta: {x: 800, y: 800}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &8834030761418233956
@@ -10257,6 +10257,7 @@ MonoBehaviour:
   menuPanel: {fileID: 990356917372778453}
   resumeButton: {fileID: 6823427048611069316}
   returnToMenuButton: {fileID: 6823427049592186607}
+  quitButton: {fileID: 990356918462168489}
   musicSlide: {fileID: 6823427048278424291}
   sfxSlide: {fileID: 6823427049601031962}
   healthBar: {fileID: 6823427048396432566}
@@ -10273,10 +10274,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 746f6b1bb6646b94ebf263ec1903860d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rt: []
-  tracking: []
-  container: {fileID: 1514679544590074604}
-  prefab: {fileID: 705058491235175111, guid: de11cba51fceb0149bb54d2d8d5c8971, type: 3}
 --- !u!1 &4935909558927002492
 GameObject:
   m_ObjectHideFlags: 0
@@ -10927,7 +10924,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 590, y: -251}
+  m_AnchoredPosition: {x: 531, y: -213}
   m_SizeDelta: {x: 800, y: 800}
   m_Pivot: {x: 0.49999997, y: 0.5}
 --- !u!222 &2740078505222318981
@@ -18860,7 +18857,55 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1407797074247477513}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 2647135551698283699}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 4935909560149063391}
+        m_TargetAssemblyTypeName: CharacterLayerManager, Assembly-CSharp
+        m_MethodName: ClearAll
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 4935909558422856211}
+        m_TargetAssemblyTypeName: SceneLoader, Assembly-CSharp
+        m_MethodName: LoadMenu
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 990356917372778453}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
 --- !u!95 &2106617812326356825
 Animator:
   serializedVersion: 5

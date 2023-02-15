@@ -15,9 +15,6 @@ EditorBuildSettings:
     path: Assets/Scenes/Finale/Gameplay.unity
     guid: 74cccccee71746746a35487be87a984b
   - enabled: 1
-    path: Assets/Scenes/Finale/End.unity
-    guid: 27596ad2d39168347a19336f83b187a7
-  - enabled: 1
     path: Assets/Scenes/Finale/CutScene.unity
     guid: 6415c4cdaf6bab14b94d2dbce0afe0fd
   m_configObjects: {}

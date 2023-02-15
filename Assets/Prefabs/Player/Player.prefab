@@ -476,7 +476,7 @@ MonoBehaviour:
   wandHolder: {fileID: 1943031359939218135}
   projectile: {fileID: 5974525540877750231, guid: 592535629d0818d4cb86514992a7735c, type: 3}
   speed: 10
-  dmg: 10
+  dmg: 25
   currentHealth: 100
   maxHealth: 100
   hitCount: 0
@@ -488,10 +488,15 @@ MonoBehaviour:
     m_Bits: 640
   targetTag: Buddy
   fairySupport: {fileID: 2537579086270649983, guid: f47162d5e6e4b894e88c209e75105da8, type: 3}
-  fairyConditionHp: 0.8
+  fairyConditionHp: 0.2
   fairyCooldown: 60
   fairyUsed: 0
   wiggleRadius: 5
+  smileySupport: {fileID: 0}
+  smileyCondition: 5
+  smileyDuration: 10
+  smileyActive: 0
+  spawnDistance: 5
 --- !u!1 &3713992474540233405
 GameObject:
   m_ObjectHideFlags: 0
