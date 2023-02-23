@@ -14,7 +14,7 @@ public class TrapZone : MonoBehaviour
             IDamagable damagable = collision.GetComponentInParent<IDamagable>();
             if(damagable != null)
             {
-                damagable.Damage(dmg);
+                damagable.TakeDamage(dmg);
             }
         }
     }

@@ -3,9 +3,6 @@ using UnityEngine;
 public class SupportAI : MonoBehaviour
 {
     public Transform target;
-    private Vector3 velocity;
-    private Vector3 direction;
-    private Vector3 destination;
     public float smoothTime = 1f;
     public float stopDistance = 1f;
 
@@ -15,87 +12,92 @@ public class SupportAI : MonoBehaviour
     public string targetTag = "Untagged";
     public GameObject rootPrefab;
 
+    [Header("Spiral Effect")]
+    public float radius = 2f;
+    public float speed = 1f;
+    public float rotationSpeed = 1f;
+    public float timeFlyingAroundPlayer;
+    public float flyOutSpeed = 1f;
+    private bool flyOut = false;
+    private float angle = 0f;
+    private Vector2 circlePosition;
+    private Vector3 intend;
+    private Vector3 flyOutDirection;
+    private Vector3 minOffset = new Vector3(0.01f, 0.01f, 0.01f);
+
+    [Header("Attributes")]
+    [SerializeField] private PlayerCombat.FairyMode currentSkill;
     public float liveDuration = 3f;
+    private PlayerCombat buffOwner;
+    private bool skillUsed = false;
+
+    [Header("Imprison Skill")]
     private float lifeTime = 0f;
     public float lockDuration = 5f;
-    private bool skillUsed = false;
-    public enum Phase
-    {
-        None,
-        Follow,
-        FlyIn,
-        FlyOut
-    }
-    public Phase assistPhase = Phase.None;
 
+    [Header("Heal Skill")]
+    public float healPoint = 100f;
     private void Start()
     {
-        GameObject go = GameObject.FindGameObjectWithTag("Player");
-        if (go != null)
-        {
-            target = go.transform;
-            assistPhase = Phase.Follow;
-        }
+        timeFlyingAroundPlayer = Time.time + timeFlyingAroundPlayer;
     }
 
-    private void FixedUpdate()
+    public void Setup(Transform target,PlayerCombat combat,PlayerCombat.FairyMode skill)
     {
-        switch (assistPhase)
-        {
-            case Phase.Follow:
-                FollowTarget();
-                break;
-            case Phase.FlyIn:
-            case Phase.FlyOut:
-                MovePosition();
-                break;
-            default:
-                break;
-        }
+        this.target = target;
+        currentSkill = skill;
+        buffOwner = combat;
     }
 
-    private void LateUpdate()
+    private void Update()
     {
-        switch (assistPhase)
+        if (target == null) return;
+        float x = (minOffset.x + target.position.x) + radius * Mathf.Cos(angle);
+        float y = (minOffset.y + target.position.y) + radius * Mathf.Sin(angle);
+        circlePosition = new Vector2(x, y);
+
+        if (Time.time < timeFlyingAroundPlayer)
         {
-            case Phase.Follow:
-                if(direction.magnitude < 5f)
+            // The object is flying around the player in a circle
+            angle += rotationSpeed * Time.deltaTime;
+            transform.position = circlePosition;
+            transform.LookAt(circlePosition);
+        }
+        else
+        {
+            // The object is spinning and flying out
+            flyOutDirection = (transform.position - target.position).normalized;
+            intend = flyOutDirection * flyOutSpeed * Time.deltaTime;
+            transform.position += intend;
+            if (skillUsed == false)
+            {
+                skillUsed = true;
+                switch (currentSkill)
                 {
-                    if (skillUsed == false)
-                    {
-                        skillUsed = true;
+                    case PlayerCombat.FairyMode.Imprision:
                         Skill_Roots();
-                        FlyAway();
-                        return;
-                    }
+                        break;
+                    case PlayerCombat.FairyMode.Healing:
+                        Skill_Heal();
+                        break;
+                    default:
+                        break;
                 }
-                lifeTime += Time.deltaTime;
-                if (lifeTime > liveDuration)
-                {
-                    FlyAway();
-                }
-                break;
-            default:
-                break;
+            }
+            if (flyOut == false)
+            {
+                flyOut = true;
+            }
         }
-        /*
 
-        if (Input.GetKeyDown(KeyCode.Space))
+    }
+
+    private void OnBecameInvisible()
+    {
+        if (flyOut)
         {
-            Skill_Roots();
+            Destroy(gameObject);
         }
-        */
-    }
-
-    private void FollowTarget()
-    {
-        direction = target.position - transform.position;
-        transform.position = Vector3.SmoothDamp(transform.position, target.position - (direction.normalized * stopDistance), ref velocity, smoothTime);
-    }
-
-    private void MovePosition()
-    {
-        transform.position = Vector3.Lerp(transform.position, destination, flySpeed * Time.deltaTime);
     }
 
     public void Skill_Roots()
@@ -117,11 +119,11 @@ public class SupportAI : MonoBehaviour
         }
     }
 
-    private void FlyAway()
+    private void Skill_Heal()
     {
-        destination = transform.position + (new Vector3(1, 1, 0) * 100);
-        assistPhase = Phase.FlyOut;
+        buffOwner.Heal(healPoint);
     }
+
 #if UNITY_EDITOR
     private void OnDrawGizmos()
     {

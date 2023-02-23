@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyCombat : CharacterCombat , IKnockbackable
+public class EnemyCombat : CharacterCombat, IKnockbackable
 {
     public float currentHealth;
     public int maxHealth = 100;
@@ -17,6 +17,11 @@ public class EnemyCombat : CharacterCombat , IKnockbackable
     [SerializeField] private float delay = 0.15f;
 
     [SerializeField] private string diedSFX;
+
+    private bool deadCondition1;
+    private bool deadCondition2;
+
+    /*
     private void Start()
     {
         HealthbarManager.Instance.AddHealth(head, this);
@@ -26,20 +31,21 @@ public class EnemyCombat : CharacterCombat , IKnockbackable
     {
         HealthbarManager.Instance.Remove(head);
     }
+    */
 
-    public override void Damage(float dmg)
+    public override void TakeDamage(float dmg)
     {
         print($"{gameObject.name} take {dmg}");
         currentHealth = Mathf.Clamp(currentHealth - dmg, 0, maxHealth);
         OnHealthUpdate?.Invoke(currentHealth / (float)maxHealth);
-        if(currentHealth == 0)
+        if (currentHealth == 0)
         {
             SoundManager.Instance.PlaySFX(diedSFX);
             SpawnManager.Instance.ConfirmKill();
             DropItem();
             gameObject.SetActive(false);
-            HealthbarManager.Instance.Remove(head);
-            CharacterLayerManager.Instance.Remove(sr, delegate { Destroy(gameObject,8f); });
+            //HealthbarManager.Instance.Remove(head, delegate { deadCondition1 = true; ConfirmDead(); });
+            CharacterLayerManager.Instance.Remove(sr, delegate { Destroy(gameObject); });
         }
     }
 

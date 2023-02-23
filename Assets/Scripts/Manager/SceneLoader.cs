@@ -11,6 +11,10 @@ public class SceneLoader : Singleton<SceneLoader>
     [SerializeField] private float fakeDuration = 3f;
     public void LoadMenu()
     {
+        if(GameManager.Instance != null)
+        {
+            GameManager.Instance.ResetGame();
+        }
         LoadScene(menuName);
     }
 
@@ -49,6 +53,14 @@ public class SceneLoader : Singleton<SceneLoader>
             }
         }
         operation.allowSceneActivation = true;
+        callback?.Invoke();
+    }
+
+    [Obsolete]
+    public IEnumerator LoadSameScene(Action callback = null)
+    {
+        Application.LoadLevel(Application.loadedLevel);
+        yield return new WaitForEndOfFrame();
         callback?.Invoke();
     }
 }

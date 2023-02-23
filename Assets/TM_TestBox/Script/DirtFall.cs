@@ -48,7 +48,7 @@ public class DirtFall : MonoBehaviour
                         IDamagable damagable = enemy.GetComponentInParent<IDamagable>();
                         if (damagable != null)
                         {
-                            damagable.Damage(fallDamage);
+                            damagable.TakeDamage(fallDamage);
                         }
                     }
                 }

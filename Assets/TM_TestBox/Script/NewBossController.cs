@@ -68,15 +68,14 @@ public class NewBossController : CharacterCombat
         rigidBody = GetComponent<Rigidbody2D>();
         player = GameObject.FindGameObjectWithTag("Player").transform;
         limitInfo = ZoneManager.Instance.GetInfo();
-        HealthbarManager.Instance.AddHealth(head, this);
-    }
-
-    private void OnDestroy()
-    {
-        HealthbarManager.Instance.Remove(head);
     }
     private void Update()
     {
+        if(player == null)
+        {
+            this.enabled = false;
+            return;
+        }
         if (bossHP <= 0)
         {
             bAnima.Play("Die");
@@ -113,7 +112,7 @@ public class NewBossController : CharacterCombat
 
     private void FixedUpdate()
     {
-        ZoneManager.Instance.LimitYPosition(transform, limitInfo.MinY, limitInfo.MaxY);
+        //ZoneManager.Instance.LimitYPosition(transform, limitInfo.MinY, limitInfo.MaxY);
     }
     void SelectAttack()
     {
@@ -235,7 +234,7 @@ public class NewBossController : CharacterCombat
                 IDamagable damagable = collision.collider.GetComponentInParent<IDamagable>();
                 if (damagable != null)
                 {
-                    damagable.Damage(chargeDamage);
+                    damagable.TakeDamage(chargeDamage);
                 }
                 isHit = true;
                 StartCoroutine(ResetCondition(3));
@@ -280,7 +279,7 @@ public class NewBossController : CharacterCombat
                         IDamagable damagable = enemy.GetComponentInParent<IDamagable>();
                         if (damagable != null)
                         {
-                            damagable.Damage(normalAtk);
+                            damagable.TakeDamage(normalAtk);
                         }
                     }
                 }
@@ -365,7 +364,7 @@ public class NewBossController : CharacterCombat
         Gizmos.DrawWireSphere(transform.position, chargeRange);
     }
 
-    public override void Damage(float dmg)
+    public override void TakeDamage(float dmg)
     {
         bossHP -= (int)dmg;
         if (bossHP <= 0)

@@ -9,7 +9,6 @@ public class SpawnManager : Singleton<SpawnManager>
     public Transform[] spawnPoints;
     public Transform[] focusPoints;
     public Transform[] lockNWave;
-    public Transform confine;
     public int[] zoneAmount;
     public int level = 0;
     public CinemachineVirtualCamera playerVC;

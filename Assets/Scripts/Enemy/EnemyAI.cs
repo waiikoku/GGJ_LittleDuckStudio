@@ -53,6 +53,7 @@ public class EnemyAI : MonoBehaviour
         {
             aer.OnAttack += MeleeHit;
         }
+        distance = Mathf.Infinity;
     }
 
     private void FixedUpdate()
@@ -63,7 +64,12 @@ public class EnemyAI : MonoBehaviour
             rb.velocity = Vector2.zero;
             return;
         }
-        if (player == null) return;
+        if (player == null)
+        {
+            this.enabled = false;
+            rb.velocity = Vector2.zero;
+            return;
+        }
         direction = player.position - transform.position;
         distance = direction.magnitude;
         FlipHandler();
@@ -123,7 +129,7 @@ public class EnemyAI : MonoBehaviour
                 IDamagable damagable = col.GetComponentInParent<IDamagable>();
                 if (damagable != null)
                 {
-                    damagable.Damage(meleeDmg);
+                    damagable.TakeDamage(meleeDmg);
                     if (SoundManager.Instance != null)
                     {
                         SoundManager.Instance.PlaySFX(meleeSFX);

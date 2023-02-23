@@ -22,7 +22,7 @@ public class Projectile : MonoBehaviour
             IDamagable damagable = collision.GetComponentInParent<IDamagable>();
             if (damagable != null)
             {
-                damagable.Damage(dmg);
+                damagable.TakeDamage(dmg);
             }
             IKnockbackable knockbackable = collision.GetComponentInParent<IKnockbackable>();
             if(knockbackable != null)

@@ -88,12 +88,15 @@ public class FriendlyAI : Character
         {
             try
             {
+                if (enemies[0] == null)
+                {
+                    enemies.RemoveAt(0);
+                }
                 distance = Vector3.Distance(enemies[0].transform.position, transform.position);
                 direction = enemies[0].transform.position - transform.position;
             }
             catch (Exception)
             {
-
                 throw;
             }
 
@@ -214,7 +217,7 @@ public class FriendlyAI : Character
                 if(damagable != null)
                 {
                     print("ApplyDmg");
-                    damagable.Damage(meleeDmg);
+                    damagable.TakeDamage(meleeDmg);
                     if (SoundManager.Instance != null)
                     {
                         SoundManager.Instance.PlaySFX(meleeSFX);

@@ -26,12 +26,20 @@ public class UIManager : Singleton<UIManager>
     [SerializeField] private Button resumeButton;
     [SerializeField] private Button returnToMenuButton;
     [SerializeField] private Button quitButton;
+    [SerializeField] private Button restartGame;
+    [SerializeField] private Button newGame;
+    [SerializeField] private Button pauseButton;
 
     [Header("Slider")]
     [SerializeField] private Slider musicSlide;
     [SerializeField] private Slider sfxSlide;
     [SerializeField] private Slider healthBar;
     [SerializeField] private Slider progressBar;
+
+    [Header("Skills")]
+    [SerializeField] private Image rootSkill;
+    [SerializeField] private Image healSkill;
+
     protected override void Awake()
     {
         base.Awake();
@@ -40,10 +48,12 @@ public class UIManager : Singleton<UIManager>
 
     private void Start()
     {
-        GameManager.Instance.OnRootUpdate += UpdateGuage;
-        GameManager.Instance.OnPause += ActivatePause;
+        Setup();
         resumeButton.onClick.AddListener(delegate { GameManager.Instance.Pause(false); });
+        pauseButton.onClick.AddListener(delegate { GameManager.Instance.Pause(true); });
         returnToMenuButton.onClick.AddListener(delegate { SceneLoader.Instance.LoadMenu(); });
+        restartGame.onClick.AddListener(delegate { SceneLoader.Instance.LoadMenu(); });
+        newGame.onClick.AddListener(ResetGame);
         musicSlide.onValueChanged.AddListener(SoundManager.Instance.BGM_ChangeVolume);
         SoundManager.Instance.OnBgmVolume += SetVolumeBGM;
         sfxSlide.onValueChanged.AddListener(SoundManager.Instance.SFX_ChangeVolume);
@@ -55,6 +65,16 @@ public class UIManager : Singleton<UIManager>
         quitButton.onClick.AddListener(QuitGame);
     }
 
+    public void Setup()
+    {
+        GameManager.Instance.OnRootUpdate += UpdateGuage;
+        GameManager.Instance.OnPause += ActivatePause;
+        GameManager.Instance.OnRootSkillUpdate += UpdateRoot;
+        GameManager.Instance.OnHealSkillUpdate += UpdateHeal;
+        rootSkill.fillAmount = 0;
+        healSkill.fillAmount = 0;
+    }
+
     private void SetupRoot()
     {
         rootIcon.sprite = rootData.itemIcon;
@@ -63,6 +83,16 @@ public class UIManager : Singleton<UIManager>
     private void UpdateGuage(float percentage)
     {
         rootGuage.value = percentage;
+    }
+
+    private void UpdateRoot(float[] minMax)
+    {
+        rootSkill.fillAmount = 1 - (minMax[0] / minMax[1]);
+    }
+
+    private void UpdateHeal(float[] minMax)
+    {
+        healSkill.fillAmount = 1 - (minMax[0] / minMax[1]);
     }
 
     public void ActivatePause(bool pause)
@@ -111,9 +141,17 @@ public class UIManager : Singleton<UIManager>
         StartCoroutine(SceneLoader.Instance.LoadSceneAsync(name, delegate { loadingScreen.SetActive(false); }));
     }
 
-    internal void SetVictory(bool v)
+    public void SetVictory(bool v)
     {
         victoryPanel.SetActive(v);
+    }
+
+    private void ResetGame()
+    {
+        UpdateHealth(1);
+        UpdateGuage(0);
+        print("Reset UI!");
+        GameManager.Instance.gameStarted = true;
     }
 
     private void QuitGame()

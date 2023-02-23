@@ -27,6 +27,8 @@ public class PlayerCombat : CharacterCombat
     public float fairyConditionHp = 0.5f;
     public float fairyCooldown = 60f;
     public bool fairyUsed = false;
+    [SerializeField] private bool fairyRootAvailable;
+    [SerializeField] private bool fairyHealAvailable;
     private float fairyTimestamp;
     public float wiggleRadius = 5f;
 
@@ -38,6 +40,10 @@ public class PlayerCombat : CharacterCombat
     public float spawnDistance = 5f;
 
     private Queue<Vector2> attackQueue;
+
+    [Header("Keybinds")]
+    [SerializeField] private KeyCode fairyRoot = KeyCode.Q;
+    [SerializeField] private KeyCode fairyHeal = KeyCode.E;
     private void Start()
     {
         InputManager.Instance.OnLMB += PrimaryAttack;
@@ -47,7 +53,7 @@ public class PlayerCombat : CharacterCombat
         }
         anim.aer.OnAttack += ShootProjectile;
         InputManager.Instance.OnSprinkle += WiggleSkill;
-        GameManager.Instance.OnRootChange += delegate (int amount) { SpawnSmiley(amount); };
+        GameManager.Instance.OnRootChange += GM_SpawnSmiley;
     }
 
     private void OnDestroy()
@@ -56,15 +62,38 @@ public class PlayerCombat : CharacterCombat
         OnHealthUpdate -= UIManager.Instance.UpdateHealth;
         anim.aer.OnAttack -= ShootProjectile;
         InputManager.Instance.OnSprinkle -= WiggleSkill;
-        GameManager.Instance.OnRootChange -= delegate (int amount) { SpawnSmiley(amount); };
+        GameManager.Instance.OnRootChange -= GM_SpawnSmiley;
     }
 
-    public override void Damage(float dmg)
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(fairyRoot))
+        {
+            SpawnFairy(FairyMode.Imprision);
+        }
+        if (Input.GetKeyDown(fairyHeal))
+        {
+            SpawnFairy(FairyMode.Healing);
+        }
+    }
+
+    private void LateUpdate()
+    {
+        
+    }
+
+    private void GM_SpawnSmiley(int amount)
+    {
+        SpawnSmiley(amount);
+    }
+
+    public override void TakeDamage(float dmg)
     {
         print($"{gameObject.name} take {dmg}");
         currentHealth = Mathf.Clamp(currentHealth - dmg, 0, maxHealth);
         OnHealthUpdate?.Invoke(currentHealth / maxHealth);
-        ConditionSkill();
+        //ConditionSkill();
         if(currentHealth == 0)
         {
             GameManager.Instance.Gameover();
@@ -127,20 +156,32 @@ public class PlayerCombat : CharacterCombat
         }
     }
 
-    private void ConditionSkill()
+    public enum FairyMode
     {
-        if (Time.time < fairyTimestamp) return;
-        if ((currentHealth / maxHealth) < fairyConditionHp)
-        {
-            SpawnFairy();
-            fairyTimestamp = Time.time + fairyCooldown;
-        }
+        None,
+        Imprision,
+        Healing
     }
-
-    private void SpawnFairy()
+    private void SpawnFairy(FairyMode mode)
     {
-        Vector2 pos = Camera.main.ViewportToWorldPoint(new Vector2(-0.1f, 0));
-        GameObject go = Instantiate(fairySupport, pos, Quaternion.identity);
+        switch (mode)
+        {
+            case FairyMode.Imprision:
+                if (fairyRootAvailable == false) return;
+                fairyRootAvailable = false;
+                break;
+            case FairyMode.Healing:
+                if (fairyHealAvailable == false) return;
+                fairyHealAvailable = false;
+                break;
+            default:
+                break;
+        }
+        GameObject go = Instantiate(fairySupport, transform.position, Quaternion.identity);
+        go.SetActive(false);
+        go.GetComponent<SupportAI>().Setup(transform, this, mode);
+        go.SetActive(true);
+        StartCoroutine(FairyThread(mode));
     }
 
     private void SpawnSmiley(int amount)
@@ -160,7 +201,51 @@ public class PlayerCombat : CharacterCombat
         yield return new WaitForSeconds(smileyDuration);
         Destroy(go);
         smileyActive = false;
-
+        if(GameManager.Instance.GetRoot() == 5)
+        {
+            GM_SpawnSmiley(5);
+        }
+    }
+    private float[] pfairyRoot = new float[2] { 0, 0 };
+    private float[] pfairyHeal = new float[2] { 0, 0 };
+    private IEnumerator FairyThread(FairyMode mode)
+    {
+        float timer = 0;
+        switch (mode)
+        {
+            case FairyMode.Imprision:
+                pfairyRoot[1] = fairyCooldown;
+                while (true)
+                {
+                    timer += Time.deltaTime;
+                    pfairyRoot[0] = timer;
+                    GameManager.Instance.OnRootSkillUpdate(pfairyRoot);
+                    if (timer > fairyCooldown)
+                    {
+                        break;
+                    }
+                    yield return null;
+                }
+                fairyRootAvailable = true;
+                break;
+            case FairyMode.Healing:
+                pfairyHeal[1] = fairyCooldown;
+                while (true)
+                {
+                    timer += Time.deltaTime;
+                    pfairyHeal[0] = timer;
+                    GameManager.Instance.OnHealSkillUpdate(pfairyHeal);
+                    if (timer > fairyCooldown)
+                    {
+                        break;
+                    }
+                    yield return null;
+                }
+                fairyHealAvailable = true;
+                break;
+            default:
+                break;
+        }
     }
 
 #if UNITY_EDITOR

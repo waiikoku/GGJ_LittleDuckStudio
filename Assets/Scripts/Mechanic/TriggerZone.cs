@@ -35,7 +35,10 @@ public class TriggerZone : MonoBehaviour
     {
         if (collision.CompareTag(targetTag))
         {
-            col.isTrigger = false;
+            if (collision.transform.position.x > transform.position.x + transform.localScale.x)
+            {
+                col.isTrigger = false;
+            }
         }
     }
 

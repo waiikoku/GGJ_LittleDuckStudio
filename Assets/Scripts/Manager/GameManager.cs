@@ -9,6 +9,10 @@ public class GameManager : Singleton<GameManager>
     [SerializeField] private int desireRoot = 5;
     public Action<int> OnRootChange;
     public Action<float> OnRootUpdate;
+    public Action<float[]> OnRootSkillUpdate;
+    public Action<float[]> OnHealSkillUpdate;
+
+    public bool gameStarted = false;
 
     [Header("Debug")]
     public Item rootItem;
@@ -28,12 +32,18 @@ public class GameManager : Singleton<GameManager>
         OnRootUpdate?.Invoke((float)rootAmount / (float)desireRoot);
     }
 
+    public int GetRoot()
+    {
+        return rootAmount;
+    }
+
     #region PauseSystem
     public bool isPause = false;
     public Action<bool> OnPause;
 
     public void Pause(bool pause)
     {
+        if (gameStarted == false) return;
         isPause = pause;
         SetTimescale(isPause ? 0 : 1);
         OnPause?.Invoke(isPause);
@@ -64,5 +74,14 @@ public class GameManager : Singleton<GameManager>
     public void Victory()
     {
         UIManager.Instance.SetVictory(true);
+    }
+
+    public void ResetGame()
+    {
+        gameStarted = false;
+        rootAmount = 0;
+        OnRootChange = null;
+        OnRootUpdate = null;
+        UIManager.Instance.Setup();
     }
 }

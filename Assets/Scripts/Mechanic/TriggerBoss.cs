@@ -1,28 +1,69 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class TriggerBoss : MonoBehaviour
 {
+    [SerializeField] private string targetTag = "Untagged";
+    [SerializeField] private string playerTag = "Untagged";
     public BoxCollider2D col;
-
-    private void OnCollisionStay2D(Collision2D collision)
+    private bool playerPassed = false;
+    [SerializeField] private float minimumExit = 1f;
+    private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.collider.CompareTag("Enemy"))
+        Collider2D cacheCol = collision.collider;
+        if (cacheCol.CompareTag(targetTag))
         {
-            if(collision.collider.GetComponent<NewBossController>())
+            BossAI cache = cacheCol.GetComponentInParent<BossAI>();
+            if(cache == null)
             {
-
+                //Exclude Normal Enemy
+                Physics2D.IgnoreCollision(cacheCol, col);
             }
             else
             {
-                Physics2D.IgnoreCollision(collision.collider, col);
+                //Block Boss
             }
+        }
+        if (playerPassed)
+        {
+            //Block player
         }
         else
         {
-            Physics2D.IgnoreCollision(collision.collider, col);
+            //Exclude for first-pass
+            if (cacheCol.CompareTag(playerTag))
+            {
+                Physics2D.IgnoreCollision(cacheCol, col);
+            }
         }
-
     }
+
+    private void OnCollisionExit2D(Collision2D collision)
+    {
+        Collider2D cacheCol = collision.collider;
+        if (playerPassed)
+        {
+
+        }
+        else
+        {
+            if (cacheCol.CompareTag(playerTag))
+            {
+                if(cacheCol.transform.position.x > transform.position.x + minimumExit)
+                {
+                    playerPassed = true;
+                }
+            }
+        }
+    }
+
+#if UNITY_EDITOR
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawLine(transform.position, transform.position + new Vector3(minimumExit, 0, 0));
+    }
+#endif
 }

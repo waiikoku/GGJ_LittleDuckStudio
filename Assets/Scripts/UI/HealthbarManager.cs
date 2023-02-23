@@ -16,11 +16,12 @@ public class HealthbarManager : Singleton<HealthbarManager>
     {
         public RectTransform rt;
         public Transform tf;
-
-        public DeleteInfo(RectTransform rectTransform,Transform transform)
+        public Action callback;
+        public DeleteInfo(RectTransform rectTransform,Transform transform, Action callback = null)
         {
             this.rt = rectTransform;
             this.tf = transform;
+            this.callback = callback;
         }
     }
     private void Start()
@@ -62,6 +63,10 @@ public class HealthbarManager : Singleton<HealthbarManager>
                 rt.Remove(info.rt);
                 tracking.Remove(info.tf);
                 Destroy(info.rt.gameObject);
+                if(info.callback != null)
+                {
+                    info.callback();
+                }
             }
         }
     }
@@ -74,18 +79,27 @@ public class HealthbarManager : Singleton<HealthbarManager>
         rt.Add(slider.GetComponent<RectTransform>());
     }
 
-    public void Remove(Transform tf)
+    public void Remove(Transform tf,Action callback = null)
     {
-        int index = 0;
-        for (int i = 0; i < tracking.Count; i++)
+        try
         {
-            if(tf == tracking[i])
+            int index = 0;
+            for (int i = 0; i < tracking.Count; i++)
             {
-                index = i;
-                break;
+                if (tf == tracking[i])
+                {
+                    index = i;
+                    break;
+                }
             }
+            rt[index].gameObject.SetActive(false);
+            deleteBar.Enqueue(new DeleteInfo(rt[index], tf,callback));
         }
-        deleteBar.Enqueue(new DeleteInfo(rt[index], tf));
+        catch (Exception e)
+        {
+            print(e.Message);
+            throw;
+        }
     }
 
     public void ClearAll()

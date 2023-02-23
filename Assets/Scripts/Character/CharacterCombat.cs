@@ -6,7 +6,7 @@ using UnityEngine;
 public abstract class CharacterCombat : MonoBehaviour , IDamagable
 {
     public Action<float> OnHealthUpdate;
-    public virtual void Damage(float dmg)
+    public virtual void TakeDamage(float dmg)
     {
     }
 }
